@@ -1,0 +1,94 @@
+<div class="grid">
+    <!--npuvelle version-->
+    <div class="col-12">
+		<div class="card">
+			<h5>Filter Menu</h5>
+			<p-table #dt1 [value]="users" dataKey="id" [rows]="10" [loading]="loading" [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true" [globalFilterFields]="['Reference','country.name','representative.name','status']" responsiveLayout="scroll">
+				<ng-template pTemplate="caption">
+					<div class="flex justify-content-between flex-column sm:flex-row">
+						<button pButton label="Clear" class="p-button-outlined mb-2" icon="pi pi-filter-slash"></button>
+						<span class="p-input-icon-left mb-2">
+							<i class="pi pi-search"></i>
+						</span>
+					</div>
+				</ng-template>
+				<ng-template pTemplate="header">
+					<tr>
+						<th>
+							<div class="flex justify-content-between align-items-center">
+								Reference
+							</div>
+						</th>
+
+						<th>
+							<div class="flex justify-content-between align-items-center">
+								Agent
+
+							</div>
+						</th>
+						<th>
+							<div class="flex justify-content-between align-items-center">
+								Prix Demande
+							</div>
+						</th>
+						<th>
+							<div class="flex justify-content-between align-items-center">
+								Status de demande
+							</div>
+						</th>
+						<th>
+							<div class="flex justify-content-between align-items-center">
+								Action
+
+							</div>
+						</th>
+
+					</tr>
+				</ng-template>
+				<ng-template pTemplate="body" let-user>
+					<tr>
+						<td style="min-width: 12rem;">
+							{{user.firstname}}
+						</td>
+						<td style="min-width: 12rem;">
+							<span class="image-text ml-2">{{user.lastname}}</span>
+						</td>
+
+						<td style="min-width: 10rem;">
+							{{user.email }}
+						</td>
+						<td style="min-width: 10rem;">
+							{{user.phonenumber}}
+						</td>
+						<td style="min-width: 12rem;">
+                           <!-- <button pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded p-button-text mr-2 mb-2"(click)="onUpdateDemandeAccepter(demandesEstate.reference)"></button>-->
+                           {{user.role.role}}
+                            <!-- <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger p-button-text mr-2 mb-2"(click)="onUpdateDemandeRefuser(demandesEstate.reference)"></button>-->
+                        </td>
+
+					</tr>
+				</ng-template>
+				<ng-template pTemplate="emptymessage">
+					<tr>
+						<td colspan="7">No customers found.</td>
+					</tr>
+				</ng-template>
+				<ng-template pTemplate="loadingbody">
+					<tr>
+						<td colspan="7">Loading customers data. Please wait.</td>
+					</tr>
+				</ng-template>
+    		</p-table>
+		</div>
+
+	</div>
+<!-- Table structure -->
+
+
+
+
+
+
+
+</div>
+

@@ -1,0 +1,84 @@
+<div class="grid">
+	<div class="col-12">
+		<div class="card">
+			<h5>DataView</h5>
+			<p-dataView #dv [value]="estates" [paginator]="true" [rows]="9" filterBy="name" [sortField]="sortField" [sortOrder]="sortOrder" layout="grid">
+				<ng-template pTemplate="header">
+					<div class="grid grid-nogutter flex-column md:flex-row justify-content-between">
+						<span class="p-input-icon-left mb-2 md:mb-0">
+                            <i class="pi pi-search"></i>
+                            <input type="search" pInputText placeholder="Search by Name" >
+                        </span>
+						<p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+					</div>
+				</ng-template>
+
+				<ng-template let-estate pTemplate="listItem">
+					<div class="col-12">
+						<div class="flex flex-column md:flex-row align-items-center p-3 w-full">
+							<!--<img [src]="'assets/demo/images/product/' + product.image" [alt]="estate.idEstateMI" class="my-4 md:my-0 w-9 md:w-10rem shadow-2 mr-5"/>
+                            -->
+                            <div class="product-images">
+                                <div *ngFor="let image of imagesMap[estate.idEstateMI]" class="product-images">
+                                    <img [src]="'data:image/jpeg;base64,' + image.imageData" alt="Image de propriété" class="my-4 md:my-0 w-9 md:w-10rem shadow-2 mr-5">
+                                </div>
+                            </div>
+                            <div class="flex-1 text-center md:text-left">
+								<div class="font-bold text-2xl">{{estate.prixTotale}}</div>
+								<div class="mb-3">{{estate.addressEstate}}</div>
+								<!--<p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating>-->
+								<div class="flex align-items-center mt-2">
+									<i class="pi pi-tag mr-2"></i>
+									<span class="font-semibold">{{estate.typeEstate}}</span>
+								</div>
+							</div>
+							<div class="flex flex-row md:flex-column justify-content-between w-full md:w-auto align-items-center md:align-items-end mt-5 md:mt-0">
+								<span class="text-2xl font-semibold mb-2 align-self-center md:align-self-end">${{estate.prixTotale}}</span>
+								<!--<p-button icon="pi pi-shopping-cart" label="Add to Cart" class="mb-2"></p-button>-->
+                                <button pButton pRipple type="button"  icon="pi pi-search" [routerLink]="['../media/', estate.idEstateMI]"class="p-button-rounded p-button-success p-button-outlined mr-2 mb-2"></button>
+
+                                <span ></span>
+							</div>
+						</div>
+					</div>
+				</ng-template>
+
+				<ng-template let-estate pTemplate="gridItem">
+					<div class="col-12 md:col-4">
+						<div class="card m-3 border-1 surface-border">
+							<div class="flex align-items-center justify-content-between">
+								<div class="flex align-items-center">
+									<i class="pi pi-tag mr-2"></i>
+									<span class="font-semibold">{{estate.idEstateMI}}</span>
+								</div>
+								<!--<span [class]="'sm:ml-2 product-badge status-' + estate.addressEstate.toLowerCase()">{{product.inventoryStatus}}</span>
+                                --></div>
+							<div class="text-center">
+								<!--<img [src]="'assets/demo/images/product/' + product.image" [alt]="product.name" class="w-9 shadow-2 my-3 mx-0"/>
+                                -->
+                                <div class="product-images">
+                                    <div *ngFor="let image of imagesMap[estate.idEstateMI]" class="product-images">
+                                        <img [src]="'data:image/jpeg;base64,' + image.imageData" alt="Image de propriété" class="img-fluid" class="shadow-4" width="45%">
+                                    </div>
+                                </div>
+                                <div class="text-2xl font-bold">{{estate.idEstateMI}}</div>
+								<div class="mb-3">{{estate.idEstateMI}}</div>
+								<!--<p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating>
+                                --></div>
+							<div class="flex align-items-center justify-content-between">
+								<span class="text-2xl font-semibold">${{estate.prixTotale}}</span>
+								<!--<p-button icon="pi pi-shopping-cart"  [routerLink]="['../panel/', estate.idEstateMI]"></p-button>-->
+                                <button pButton pRipple type="button"  icon="pi pi-search" [routerLink]="['../media/', estate.idEstateMI]"class="p-button-rounded p-button-success p-button-outlined mr-2 mb-2"></button>
+
+                            </div>
+						</div>
+					</div>
+				</ng-template>
+			</p-dataView>
+		</div>
+	</div>
+
+
+
+
+</div>

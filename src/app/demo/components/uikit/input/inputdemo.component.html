@@ -1,0 +1,581 @@
+<div class="grid p-fluid">
+	<div class="col-12 md:col-6">
+		<!--<div class="card">
+			<h5>InputText</h5>
+			<div class="grid formgrid">
+				<div class="col-12 mb-2 lg:col-4 lg:mb-0">
+					<input type="text" pInputText placeholder="Default">
+				</div>
+				<div class="col-12 mb-2 lg:col-4 lg:mb-0">
+					<input type="text" pInputText placeholder="Disabled" [disabled]="true"/>
+				</div>
+				<div class="col-12 mb-2 lg:col-4 lg:mb-0">
+					<input type="text" pInputText placeholder="Invalid" class="ng-dirty ng-invalid"/>
+				</div>
+			</div>
+
+			<h5>Icons</h5>
+			<div class="grid formgrid">
+				<div class="col-12 mb-2 lg:col-4 lg:mb-0">
+					<span class="p-input-icon-left">
+						<i class="pi pi-user"></i>
+						<input type="text" pInputText placeholder="Username"/>
+					</span>
+				</div>
+				<div class="col-12 mb-2 lg:col-4 lg:mb-0">
+					<span class="p-input-icon-right">
+						<input type="text" pInputText placeholder="Search"/>
+						<i class="pi pi-search"></i>
+					</span>
+				</div>
+				<div class="col-12 mb-2 lg:col-4 lg:mb-0">
+					<span class="p-input-icon-left p-input-icon-right">
+						<i class="pi pi-user"></i>
+						<input type="text" pInputText placeholder="Search"/>
+						<i class="pi pi-search"></i>
+					</span>
+				</div>
+			</div>
+
+			<h5>Float Label</h5>
+			<span class="p-float-label">
+				<input id="float-input" type="text" pInputText>
+				<label for="float-input">Username</label>
+			</span>
+
+			<h5>Textarea</h5>
+			<textarea rows="5" cols="30" placeholder="Your Message" pInputTextarea></textarea>
+
+			<h5>AutoComplete</h5>
+
+
+			<h5>Calendar</h5>
+			<p-calendar [showIcon]="true" inputId="icon"></p-calendar>
+
+			<h5>InputNumber</h5>
+			<p-inputNumber mode="decimal" [showButtons]="true" [min]="0" [max]="100">
+			</p-inputNumber>
+
+			<h5>Chips</h5>
+			<p-chips></p-chips>
+		</div>-->
+
+
+		<!--<div class="card">
+            <div class="grid">
+                <div class="col-12">
+                    <h5>Slider</h5>
+                    <input type="text" pInputText [(ngModel)]="valSlider" readonly/>
+                    <p-slider [(ngModel)]="valSlider"></p-slider>
+                </div>
+                <div class="col-12 md:col-6">
+                    <h5>Rating</h5>
+                    <p-rating></p-rating>
+                </div>
+                <div class="col-12 md:col-6">
+                    <h5>ColorPicker</h5>
+                    <p-colorPicker [(ngModel)]="valColor"></p-colorPicker>
+                </div>
+                <div class="col-12">
+                    <h5>Knob</h5>
+                    <p-knob [(ngModel)]="valueKnob" valueTemplate="{value}%" [step]="10" [min]="-50" [max]="50"></p-knob>
+                </div>
+            </div>
+		</div>-->
+	</div>
+
+	<div class="col-12 md:col-12">
+		<div class="card">
+			<!--<h5>RadioButton</h5>
+			<div class="grid formgrid">
+				<div class="col-12 md:col-4">
+					<div class="field-radiobutton">
+						<p-radioButton name="city" value="Chicago" [(ngModel)]="valRadio" id="city1"></p-radioButton>
+						<label for="city1">Chicago</label>
+					</div>
+				</div>
+				<div class="col-12 md:col-4">
+					<div class="field-radiobutton">
+						<p-radioButton name="city" value="Los Angeles" [(ngModel)]="valRadio"
+									   id="city2"></p-radioButton>
+						<label for="city2">Los Angeles</label>
+					</div>
+				</div>
+				<div class="col-12 md:col-4">
+					<div class="field-radiobutton">
+						<p-radioButton name="city" value="New York" [(ngModel)]="valRadio" id="city3"></p-radioButton>
+						<label for="city3">New York</label>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="grid formgrid">
+				<div class="col-12 md:col-4">
+					<div class="field-checkbox">
+						<p-checkbox name="group1" value="New York" [(ngModel)]="valCheck" id="ny"></p-checkbox>
+						<label for="ny">New York</label>
+					</div>
+				</div>
+				<div class="col-12 md:col-4">
+					<div class="field-checkbox">
+						<p-checkbox name="group1" value="San Francisco" [(ngModel)]="valCheck" id="sf"></p-checkbox>
+						<label for="sf">San Francisco</label>
+					</div>
+				</div>
+				<div class="col-12 md:col-4">
+					<div class="field-checkbox">
+						<p-checkbox name="group1" value="Los Angeles" [(ngModel)]="valCheck" id="la"></p-checkbox>
+						<label for="la">Los Angeles</label>
+					</div>
+				</div>
+			</div>-->
+
+
+           <!-- inputdemo.component.html -->
+
+
+
+
+
+
+
+
+		<!--<div class="card">
+			<h5>Listbox</h5>
+			<p-listbox [options]="cities" [(ngModel)]="selectedList" [filter]="true"></p-listbox>
+
+            <h5>Dropdown</h5>-->
+
+             <!--<p-dropdown [(ngModel)]="selectedCategoryId" (onChange)="onCategorySelectionChange()" [options]="categories"
+            placeholder="Select a Category" optionLabel="categorieMi" optionValue="idCategorieEstate" [showClear]="true">
+
+            </p-dropdown>
+            <div class="p-field">
+                <label for="typeDropdown">Select Type:</label>
+                <p-dropdown id="typeDropdown" [(ngModel)]="selectedTypeId" [options]="types"
+                            optionLabel="typeEstate" optionValue="idTypeEstateMI"      placeholder="Select a Type" [showClear]="true"
+                            [disabled]="!types.length">
+                </p-dropdown>
+            </div>
+
+
+            <p-dropdown [(ngModel)]="selectedCategoryId" [options]="types"
+            placeholder="Select a Type" optionLabel="categorieTypes"  [showClear]="true">>
+            <div *ngIf="types.length > 0">
+                <label for="typeSelect">Select Type:</label>
+                <select id="typeSelect" [(ngModel)]="selectedTypeId">
+                  <option *ngFor="let type of types" [value]="type.idTypeEstateMI">
+                    {{ type.typeEstate }}
+                  </option>
+                </select>
+              </div>
+            </p-dropdown>-->
+
+
+
+
+			<!--<h5>Multiselect</h5>
+			<p-multiSelect [options]="countries" [(ngModel)]="selectedMulti" defaultLabel="Select a Country" optionLabel="name" class="multiselect-custom">
+				<ng-template let-value pTemplate="selectedItems">
+					<div class="country-item country-item-value" *ngFor="let option of categories">
+						<div>{{option.categorieMi}}</div>
+					</div>
+					<div *ngIf="!selectedMulti || selectedMulti.length === 0" class="country-placeholder">
+						Select Countries
+					</div>
+				</ng-template>
+				<ng-template let-country pTemplate="item">
+					<div class="country-item">
+						<img src="assets/demo/images/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" />
+						<div>{{country.name}}</div>
+					</div>
+				</ng-template>
+			</p-multiSelect>
+		</div>-->
+
+		<!--<div class="card">
+			<h5>ToggleButton</h5>
+			<p-toggleButton [(ngModel)]="valToggle" onLabel="Yes" offLabel="No" [style]="{'width': '10em'}"></p-toggleButton>
+
+			<h5>SelectOneButton</h5>
+			<p-selectButton [options]="paymentOptions" [(ngModel)]="valSelect1" optionLabel="name"></p-selectButton>
+
+			<h5>SelectManyButton</h5>
+			<p-selectButton [options]="paymentOptions" [(ngModel)]="valSelect2" [multiple]="true" optionLabel="name"></p-selectButton>
+
+		</div>-->
+
+            <!-- <div class="container-fluid">
+                    <form #estateForm="ngForm" (ngSubmit)="addEstate()">
+
+                        <div class="p-fluid">
+                            <div class="col-12 md:col-6">
+
+                            <div class="p-field">
+                                <label for="categoryDropdown">Select Category:</label>
+                                <p-dropdown id="categoryDropdown" [(ngModel)]="selectedCategoryId"
+                                            [options]="categories"
+                                            optionLabel="categorieMi"
+                                            optionValue="idCategorieEstate"
+                                            placeholder="Select a Category"
+                                            (onChange)="onCategorySelectionChange()"
+                                            [showClear]="true">
+                                </p-dropdown>
+                            </div>
+                        </div>
+
+
+                <div class="p-field">
+                    <div class="col-12 md:col-6">
+                    <label for="typeDropdown">Select Type:</label>
+                    <p-dropdown id="typeDropdown" [(ngModel)]="selectedTypeId"
+                                [options]="types"
+                                optionLabel="typeEstate"
+                                optionValue="idTypeEstateMI"
+                                placeholder="Select a Type"
+                                [disabled]="!selectedCategoryId || !types.length"
+                                (onChange)="loadCaracteristiquesByType()"
+                                [showClear]="true">
+                    </p-dropdown>
+                </div>
+
+
+                <div class="col-12 md:col-12">
+                            <div class="p-field">
+                                <div class="grid formgrid">
+                                    <div class="col-12 mb-2 lg:col-6 lg:mb-0">
+                                        <input type="text" pInputText [(ngModel)]="estateSaved.libEstate" placeholder="Libellé Immobilier" name="libelle" required>
+                                    </div>
+                                    <div class="col-12 mb-2 lg:col-6 lg:mb-0">
+                                        <input type="text" pInputText [(ngModel)]="estateSaved.addressEstate" placeholder="Adresse Immobilier" name="address">                                    </div>
+
+                                </div>
+                            </div>
+                </div>
+                <div class="col-12 md:col-12">
+
+                            <div class="p-field">
+                                <div class="grid formgrid">
+                                    <div class="col-12 mb-2 lg:col-6 lg:mb-0">
+                                        <input type="text" pInputText placeholder="Surface en M²">
+                                    </div>
+                                    <div class="col-12 mb-2 lg:col-6 lg:mb-0">
+                                        <input type="text" pInputText placeholder="Nombre de composants ">
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                </div>
+                <div class="col-12 md:col-12">
+
+                    <div class="p-field">
+                        <div class="grid formgrid">
+                            <div class="col-12 mb-2 lg:col-6 lg:mb-0">
+                                <input type="text" pInputText placeholder="Prix en M²">
+                            </div>
+                            <div class="col-12 mb-2 lg:col-6 lg:mb-0">
+                                <input type="text" pInputText placeholder="Prix ">
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                    <div class="col-12 md:col-12">
+                        <div class="p-field">
+                            <h5>Date de disponibilité</h5>
+                            <div class="grid formgrid">
+                                <div class="col-12 mb-2 lg:col-6 lg:mb-0">
+                                    <p-calendar [showIcon]="true" inputId="icon"></p-calendar>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+
+                <div class="p-field">
+                    <div class="col-12 md:col-6"></div>
+                    <div *ngIf="caracteristiques.length > 0">
+                        <label>Select Caracteristique:</label>
+                        <div *ngFor="let caracteristique of caracteristiques">
+                            <p-checkbox
+                                [value]="caracteristique.idCaracteristiqueEstate"
+                                [(ngModel)]="selectedCaracteristiqueIds"
+
+                                label="{{ caracteristique.caracteristique }}"></p-checkbox>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+            <div class="p-field">
+                <input type="file" (change)="onFileSelected($event)">
+                    <button (click)="upload()">Upload</button>
+
+                        <ng-template pTemplate="content">
+                            <ul *ngIf="uploadedFiles.length">
+                                <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+                            </ul>
+                            <p *ngIf="message">{{ message }}</p>
+                        </ng-template>
+
+
+                </div>
+
+
+
+            <div class="p-field">
+                <button type="submit" pButton label="Add Estate" [disabled]="!estateForm.valid"></button>
+            </div>
+
+
+
+    </form>
+
+
+
+	</div>-->
+            <!--<p-fileUpload name="demo[]" url="./upload.php" (onUpload)="onUpload($event) "[multiple]="true" accept="image/*" [maxFileSize]="1000000">
+                <ng-template pTemplate="content">
+                    <ul *ngIf="uploadedFiles.length">
+                        <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+                    </ul>
+                </ng-template>
+            </p-fileUpload>-->
+	<!--<div class="col-12">
+		<div class="card">
+            <h5>InputGroup</h5>
+			<div class="grid p-fluid">
+				<div class="col-12 md:col-6">
+                    <div id="map" style="height: 100%; width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>-->
+
+
+
+
+
+
+	<div class="col-12">
+		<div class="card">
+			<h3>Ajouter une Estate</h3>
+			<!--<div class="grid p-fluid">
+				<div class="col-12 md:col-6">
+					<div class="p-inputgroup">
+						<span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+						<input type="text" pInputText placeholder="Username">
+					</div>
+				</div>
+				<div class="col-12 md:col-6">
+					<div class="p-inputgroup">
+						<span class="p-inputgroup-addon"><i class="pi pi-tags" style="line-height: 1.25;"></i></span>
+						<span class="p-inputgroup-addon"><i class="pi pi-shopping-cart" style="line-height: 1.25;"></i></span>
+						<input type="text" pInputText placeholder="Price">
+						<span class="p-inputgroup-addon">$</span>
+						<span class="p-inputgroup-addon">.00</span>
+					</div>
+				</div>
+				<div class="col-12 md:col-6">
+					<div class="p-inputgroup">
+						<button type="button" pButton pRipple label="Search"></button>
+						<input type="text" pInputText placeholder="Keyword">
+					</div>
+				</div>
+				<div class="col-12 md:col-6">
+					<div class="p-inputgroup">
+						<span class="p-inputgroup-addon"><p-checkbox [(ngModel)]="valCheck2" [binary]="true"></p-checkbox></span>
+						<input type="text" pInputText placeholder="Username">
+					</div>
+				</div>
+			</div>-->
+
+
+
+
+
+
+    <!-- add-estate.component.html -->
+<!-- add-estate.component.html -->
+<div class="col-12 md:col-12">
+    <div class="container-fluid">
+        <form #estateForm="ngForm" (ngSubmit)="addEstate()">
+            <!-- Dropdown for selecting a category -->
+            <div class="p-fluid">
+                <div class="col-12 md:col-6">
+                    <div class="p-field">
+                        <label for="categoryDropdown">Select Category:</label>
+                        <p-dropdown id="categoryDropdown" [(ngModel)]="selectedCategoryId"
+                                    [options]="categories"
+                                    optionLabel="categorieMi"
+                                    optionValue="idCategorieEstate"
+                                    placeholder="Select a Category"
+                                    (onChange)="onCategorySelectionChange()"
+                                    [showClear]="true"
+                                    name="categoryDropdown" >
+                        </p-dropdown>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dropdown for selecting a type -->
+            <div class="p-fluid">
+                <div class="col-12 md:col-6">
+                    <div class="p-field">
+                        <label for="typeDropdown">Select Type:</label>
+                        <p-dropdown id="typeDropdown" [(ngModel)]="selectedTypeId"
+                                    [options]="types"
+                                    optionLabel="typeEstate"
+                                    optionValue="idTypeEstateMI"
+                                    placeholder="Select a Type"
+                                    [disabled]="!selectedCategoryId || !types.length"
+                                    (onChange)="loadCaracteristiquesByType()"
+                                    [showClear]="true"
+                                    name="typeDropdown">
+                        </p-dropdown>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="col-12 md:col-12">
+                <div class="p-field">
+                    <div class="grid formgrid">
+                        <div class="col-12 mb-2 lg:col-6 lg:mb-0">
+                            <input type="text" pInputText [(ngModel)]="estateSaved.libEstate" placeholder="Libellé Immobilier" name="libelle" required>
+                        </div>
+                        <div class="col-12 mb-2 lg:col-6 lg:mb-0">
+                            <input type="text" pInputText [(ngModel)]="estateSaved.addressEstate" placeholder="Adresse Immobilier" name="address">
+                        </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 md:col-12">
+
+                    <div class="p-field">
+                        <div class="grid formgrid">
+                            <div class="col-12 mb-2 lg:col-6 lg:mb-0">
+                                <input type="text" pInputText [(ngModel)]="estateSaved.surfacieEnM" placeholder="Surface en M²" name="surface" required>
+                            </div>
+                            <div class="col-12 mb-2 lg:col-6 lg:mb-0">
+                                <input type="text" pInputText [(ngModel)]="estateSaved.nbreComposants" placeholder="Nombre de composants" name="nbComponents" required>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-12 md:col-12">
+
+                    <div class="p-field">
+                        <div class="grid formgrid">
+                            <div class="col-12 mb-2 lg:col-6 lg:mb-0">
+                                <input type="text" pInputText [(ngModel)]="estateSaved.prixEnM" placeholder="Prix en M²" name="pricePerM" required>
+                            </div>
+                            <div class="col-12 mb-2 lg:col-6 lg:mb-0">
+                                <input type="text" pInputText [(ngModel)]="estateSaved.prixTotale" placeholder="Prix Total" name="totalPrice" required>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+        <!-- Date picker for availability
+        <div class="p-field">
+            <label>Date de disponibilité:</label>
+            <p-calendar [(ngModel)]="estateSaved.disponibilite" [showIcon]="true" inputId="disponibilityDate" name="disponibilityDate"></p-calendar>
+        </div>-->
+
+        <!-- Checkboxes for selecting characteristics -->
+        <div class="p-field" *ngIf="selectedTypeId && caracteristiques.length > 0">
+            <label>Select Characteristics:</label>
+            <div *ngFor="let caracteristique of caracteristiques">
+                <p-checkbox [value]="caracteristique.idCaracteristiqueEstate"
+                            [(ngModel)]="selectedCaracteristiqueIds"
+                            label="{{ caracteristique.caracteristique }}" name="caracteristique{{caracteristique.caracteristique}}">
+                </p-checkbox>
+            </div>
+        </div>
+
+        <!-- File upload section
+        <div class="p-field">
+            <p-fileUpload name="demo[]" url="./upload.php" (onUpload)="onUpload($event)"
+                          [multiple]="true" accept="image/*" [maxFileSize]="1000000" >
+                <ng-template pTemplate="content">
+                    <ul *ngIf="uploadedFiles.length">
+                        <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+                    </ul>
+                </ng-template>
+            </p-fileUpload>
+        </div>-->
+        <!--<div class="p-field">
+            <p-fileUpload name="demo[]" url="http://localhost:8083/upload/"  (uploadHandler)="myUploadHandler($event)"
+                          [multiple]="true" accept="image/*" [maxFileSize]="1000000" >
+                <ng-template pTemplate="content">
+                    <ul *ngIf="uploadedFiles.length">
+                        <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
+                    </ul>
+                </ng-template>
+            </p-fileUpload>
+        </div>-->
+        <div class="p-field">
+            <input type="file" (change)="onFileSelected($event)">
+                <button (click)="upload()">Upload</button>
+
+                    <ng-template pTemplate="content">
+                        <ul *ngIf="uploadedFiles.length">
+                            <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+                        </ul>
+                        <p *ngIf="message">{{ message }}</p>
+                    </ng-template>
+
+
+            </div>
+
+
+        <!-- Submit button -->
+        <div class="p-field">
+            <button type="submit" pButton label="Add Estate" [disabled]="!estateForm.valid"></button>
+        </div>
+    </form>
+</div>
+<!--<div class="p-field">
+    <input type="file" (change)="onFileSelected($event)">
+        <button (click)="upload()">Upload</button>
+
+            <ng-template pTemplate="content">
+                <ul *ngIf="uploadedFiles.length">
+                    <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+                </ul>
+                <p *ngIf="message">{{ message }}</p>
+            </ng-template>
+
+
+    </div>-->
+
+    <!-- src/app/your-component/your-component.component.html
+<button (click)="testFetchUserByEmail()">Test Fetch User By Email</button>
+<div *ngIf="fetchedUser">
+  <p>User ID: {{ fetchedUser.idUser }}</p>
+  <p>User Email: {{ fetchedUser.email }}</p>
+</div>
+
+<button (click)="displayUserEmail()">Afficher l'Email de l'Utilisateur</button>
+<p>Email de l'Utilisateur: {{ userEmail }}</p>-->
+
+
+</div>

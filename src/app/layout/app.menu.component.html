@@ -1,0 +1,22 @@
+<ul class="layout-menu">
+    <ng-container *ngFor="let category of model">
+        <li>
+            <div class="menu-category">
+                {{ category.label }}
+            </div>
+            <ul>
+                <li *ngFor="let item of category.items">
+                    <ng-container *ngIf="shouldShowItem(item)">
+                        <a [routerLink]="item.routerLink" app-menuitem [item]="item">
+                            <i *ngIf="item.icon" class="{{item.icon}}"></i>
+                            {{ item.label }}
+                        </a>
+                    </ng-container>
+                </li>
+    <!-- Static content, if necessary
+    <li>
+        <a href="https://www.primefaces.org/primeblocks-ng/#/">
+            <img src="assets/layout/images/{{layoutService.config.colorScheme === 'light' ? 'banner-primeblocks' : 'banner-primeblocks-dark'}}.png" alt="Prime Blocks" class="w-full mt-3"/>
+        </a>
+    </li>-->
+</ul>
