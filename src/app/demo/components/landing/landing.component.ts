@@ -19,6 +19,7 @@ import { EstateImageService } from '../../service/estateImage.service';
             image-rendering: optimizeQuality;
         }
 
+
         .pricing-card:hover{
             border:2px solid var(--cyan-200) !important;
         }

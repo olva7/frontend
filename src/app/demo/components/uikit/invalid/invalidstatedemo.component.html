@@ -1,13 +1,17 @@
+<!-- src/app/components/your-component/your-component.component.html -->
 <div class="card">
-    <h5>Invalid State</h5>
-    <p>All form components have an invalid state style to display the validation errors when ng-invalid ng-dirty combination is applied by Angular.</p>
+    <h5>Galerie</h5>
+    <p>Ajoutez les images des votre estate!</p>
+    <br>
     <div class="grid p-fluid">
-        <div>
-            <input type="file" (change)="onFileSelected($event)">
-            <input type="text"  placeholder="Enter Tag (optional)">
-            <button (click)="onUpload(this.estateId, tag)">Upload Image</button>
-          </div>
-
+        <div class="custom-file-container">
+            <input type="file" id="file-upload" (change)="onFileSelected($event)" class="custom-file-input">
+            <label for="file-upload" class="custom-file-label">Choisir des images</label>
+            <input type="text" placeholder="Enter Tag (optional)" class="custom-input" [(ngModel)]="tag">
+            <button (click)="onUpload(estateId, tag)" class="custom-upload-button">Upload Image</button>
+        </div>
     </div>
 </div>
+
+
 

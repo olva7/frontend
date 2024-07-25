@@ -532,16 +532,31 @@
                 </ng-template>
             </p-fileUpload>
         </div>-->
-        <div class="p-field">
-            <input type="file" (change)="onFileSelected($event)">
-                <button (click)="upload()">Upload</button>
 
-                    <ng-template pTemplate="content">
-                        <ul *ngIf="uploadedFiles.length">
-                            <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
-                        </ul>
-                        <p *ngIf="message">{{ message }}</p>
-                    </ng-template>
+
+
+        <div class="p-field">
+            <p-toolbar styleClass="mb-4">
+                <ng-template pTemplate="left">
+
+                    <label for="file-upload" class="custom-file-upload">
+                        <i class="fa fa-cloud-upload"></i> Choisir une image vitrine
+                    </label>
+                    <input id="file-upload" type="file" style="display: none;" (change)="handleFileSelection($event)">
+
+
+                           <!-- <ng-template pTemplate="content">
+                                <ul *ngIf="uploadedFiles.length">
+                                    <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+                                </ul>
+                                <p *ngIf="message">{{ message }}</p>
+                            </ng-template>-->
+                </ng-template>
+            </p-toolbar>
+
+
+
+
 
 
             </div>
@@ -549,7 +564,9 @@
 
         <!-- Submit button -->
         <div class="p-field">
-            <button type="submit" pButton label="Add Estate" [disabled]="!estateForm.valid"></button>
+            <div class="col-12 md:col-6">
+                 <button pButton pRipple label class="mr-2 mb-2" type="submit" pButton label="Add Estate" [disabled]="!estateForm.valid"></button>
+            </div>
         </div>
     </form>
 </div>
@@ -578,4 +595,4 @@
 <p>Email de l'Utilisateur: {{ userEmail }}</p>-->
 
 
-</div>
+

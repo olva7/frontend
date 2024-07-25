@@ -16,24 +16,24 @@
 					<tr>
 						<th>
 							<div class="flex justify-content-between align-items-center">
-								Reference
+								Prénom
 							</div>
 						</th>
 
 						<th>
 							<div class="flex justify-content-between align-items-center">
-								Agent
+								Nom
 
 							</div>
 						</th>
 						<th>
 							<div class="flex justify-content-between align-items-center">
-								Prix Demande
+								email
 							</div>
 						</th>
 						<th>
 							<div class="flex justify-content-between align-items-center">
-								Status de demande
+								 Role de l'utilisateur
 							</div>
 						</th>
 						<th>
@@ -58,12 +58,12 @@
 							{{user.email }}
 						</td>
 						<td style="min-width: 10rem;">
-							{{user.phonenumber}}
+                            {{user.role.role}}
 						</td>
 						<td style="min-width: 12rem;">
-                           <!-- <button pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded p-button-text mr-2 mb-2"(click)="onUpdateDemandeAccepter(demandesEstate.reference)"></button>-->
-                           {{user.role.role}}
-                            <!-- <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger p-button-text mr-2 mb-2"(click)="onUpdateDemandeRefuser(demandesEstate.reference)"></button>-->
+                           <button pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded p-button-text mr-2 mb-2"></button>
+
+                            <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger p-button-text mr-2 mb-2"></button>
                         </td>
 
 					</tr>

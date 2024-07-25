@@ -10,7 +10,21 @@ import { EstatemiService } from 'src/app/demo/service/estatemi.service';
 import { ProductService } from 'src/app/demo/service/product.service';
 
 @Component({
-    templateUrl: './listdemo.component.html'
+    templateUrl: './listdemo.component.html',
+    styles: [`
+
+        /* component.css */
+        .brick-red-text {
+            color: #B22222;
+        }
+        .sky-blue-text {
+            color: #87CEEB;
+        }
+
+
+
+
+    `],
 })
 export class ListDemoComponent implements OnInit {
 
@@ -72,12 +86,11 @@ export class ListDemoComponent implements OnInit {
     loadEstates(): void {
         this.estateService.getAllEstates().subscribe({
             next: (data: EstateMi[]) => {
-                this.estates = data;
+                this.estates = data.filter(estate => estate.etatEstate === 1);  // Filtrage des estates avec etatEstate=1
                 this.estates.forEach(estate => {
                     if (estate.idEstateMI !== undefined) {  // Vérification ajoutée ici
                         this.loadImagesForEstate(estate.idEstateMI);
-                     //   this.viewDetails(estate.idEstateMI);
-                    console.log(this.estates,"estates")
+                        console.log(this.estates, "estates");
                     }
                 });
             },
@@ -86,6 +99,7 @@ export class ListDemoComponent implements OnInit {
             }
         });
     }
+
     loadImagesForEstate(idEstateMI: number): void {
         this.imageService.getByIdImageData(idEstateMI).subscribe({
             next: (images: EstateImage[]) => {

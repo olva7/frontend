@@ -7,6 +7,7 @@ import { FormlayoutRoutingModule } from './formlayout-routing.module';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import {RippleModule} from "primeng/ripple";
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
         InputTextModule,
         InputTextareaModule,
         ButtonModule,
-        FormlayoutRoutingModule
+        FormlayoutRoutingModule,
+        RippleModule
     ],
     declarations: [FormLayoutComponent]
 })

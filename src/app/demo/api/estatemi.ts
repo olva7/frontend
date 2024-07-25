@@ -17,7 +17,7 @@ export class EstateMi {
     surfacieEnM?: number;
     addressEstate?: string;
     disponibilite?: Date;
-    categorieMiTag?: string;
+    categorieMiTag?: string | null;
     dateAjout?: Date;
     dateConstruction?: Date;
     nbreComposants?: number;

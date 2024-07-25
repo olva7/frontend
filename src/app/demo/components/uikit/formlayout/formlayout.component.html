@@ -1,5 +1,5 @@
 <div class="grid">
-	<div class="col-12 md:col-6">
+	<!--<div class="col-12 md:col-6">
 		<div class="card p-fluid">
 			<h5>Vertical</h5>
 			<div class="field">
@@ -30,9 +30,9 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div>-->
 
-	<div class="col-12 md:col-6">
+	<!--<div class="col-12 md:col-6">
 		<div class="card p-fluid">
 			<h5>Horizontal</h5>
 			<div class="field grid">
@@ -51,7 +51,7 @@
 
 		<div class="card">
 			<h5>Inline</h5>
-            
+
 			<div class="formgroup-inline">
 				<div class="field">
 					<label htmlFor="firstname1" class="p-sr-only">Firstname</label>
@@ -73,7 +73,7 @@
 				<small>Enter your username to reset your password.</small>
 			</div>
 		</div>
-	</div>
+	</div>-->
 
 	<div class="col-12">
 		<div class="card">
@@ -87,35 +87,61 @@
               </style>
             </head>
             <body>
-              <h3 class="info-agence">Informations Agence</h3>
+              <h3 class="info-agence">Ajouter un utilisateur</h3>
             </body>
 			<div class="p-fluid p-formgrid grid">
 				<div class="field col-12 md:col-6">
-					<label htmlFor="firstname2">Firstname</label>
+					<label htmlFor="firstname2">Nom de famille</label>
 					<input pInputText id="firstname2" type="text" />
 				</div>
 				<div class="field col-12 md:col-6">
-					<label htmlFor="lastname2">Lastname</label>
+					<label htmlFor="lastname2">Prénom</label>
 					<input pInputText id="lastname2" type="text" />
 				</div>
 				<div class="field col-12">
 					<label htmlFor="address">Address</label>
 					<input pInputTextarea id="address" rows="4" />
 				</div>
-				<div class="field col-12 md:col-6">
-					<label htmlFor="city">City</label>
-					<input pInputText id="city" type="text" />
-				</div>
-				<div class="field col-12 md:col-3">
-					<label htmlFor="state">State</label>
-					<p-dropdown [options]="dropdownItems" optionLabel="name" [(ngModel)]="selectedState"></p-dropdown>
-				</div>
-				<div class="field col-12 md:col-3">
-					<label htmlFor="zip">Zip</label>
-					<input pInputText id="zip" type="text" />
-				</div>
-                <button pButton label="Submit"></button>
-			</div>
+                <div class="field col-12 md:col-6">
+                    <label htmlFor="firstname2">Numéro de téléphone</label>
+                    <input pInputText id="firstname2" type="text" />
+                </div>
+                <div class="field col-12 md:col-6">
+                    <label htmlFor="lastname2">Email</label>
+                    <input pInputText id="lastname2" type="text" />
+                </div>
+
+                <div class="field col-12 md:col-6">
+                    <label htmlFor="firstname2">Date de naissance</label>
+                    <input pInputText id="firstname2" type="date" />
+                </div>
+                <div class="field col-12 md:col-6">
+                    <label htmlFor="lastname2">Password</label>
+                    <input pInputText id="lastname2" type="password" />
+                </div>
+                <div class="field col-12 md:col-3">
+                    <label htmlFor="state">Role</label>
+                    <p-dropdown [options]="dropdownItems" optionLabel="name" [(ngModel)]="selectedState"></p-dropdown>
+                </div>
+            </div>
+                <style>
+                    .info-agence {
+                        font-family: 'Times New Roman', serif; /* Utilisation de Times New Roman */
+                        color: skyblue; /* Définit la couleur du texte en bleu ciel */
+                        text-align: center; /* Centre le texte horizontalement */
+                    }
+
+                    .submit-button {
+                        padding: 8px 15px; /* Reduces padding, adjust as necessary */
+                        font-size: 14px; /* Reduces font size, adjust as necessary */
+                        width: auto; /* Ensures the button width only fits its content, adjust as necessary */
+                        margin: 10px 0; /* Adds some margin for spacing */
+                        color: skyblue;
+
+                    }
+                </style>
+                <button pButton pRipple label="Ajouter" class="mr-2 mb-2"></button>
+
 		</div>
 	</div>
     <div class="col-12">

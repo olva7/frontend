@@ -17,6 +17,15 @@ export class DemandeEstateService {
   constructor(private Http:HttpClient) {
 
    }
+    countEstatesByEtatEstateEquals2(): Observable<number> {
+        return this.Http.get<number>(`${this.urlServiceApi}count-etat-2`);
+    }
+    countEstatesByEtatEstateEquals3(): Observable<number> {
+        return this.Http.get<number>(`${this.urlServiceApi}count-etat-3`);
+    }
+    countEstatesByEtatEstateEquals1(): Observable<number> {
+        return this.Http.get<number>(`${this.urlServiceApi}count-etat-1`);
+    }
 
    /*add(demandeData: any): Observable<any> {
     const token = localStorage.getItem('jwt');
@@ -60,7 +69,9 @@ export class DemandeEstateService {
       );
   }
 
-
+    countDemandes(): Observable<number> {
+        return this.Http.get<number>(`${this.urlServiceApi}count_demande`);
+    }
 
   getAllDemandesEstate(): Observable<DemandeEstate[]> {
     return this.Http.get<DemandeEstate[]>(this.urlServiceApi+"demendes/all");

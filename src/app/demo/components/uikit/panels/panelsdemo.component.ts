@@ -14,8 +14,67 @@ import {jwtDecode} from 'jwt-decode';
 import { DocumentDemande } from 'src/app/demo/api/documentdemande';
 import { HttpClient } from '@angular/common/http';
 import { Documents } from 'src/app/demo/api/document';
+import Swal from "sweetalert2";
 @Component({
-    templateUrl: './panelsdemo.component.html'
+    templateUrl: './panelsdemo.component.html',
+    styles: [`
+        /* styles.css or component-specific stylesheet (e.g., your-component.component.css) */
+        .custom-file-input {
+            display: none; /* Hide the default file input */
+        }
+
+        .custom-file-label {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .custom-file-label:hover {
+            background-color: #1b4f55;
+        }
+
+        .custom-upload-button {
+            padding: 10px 20px;
+            background-color: #1b4f55;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .custom-upload-button:hover {
+            background-color: #1b4f55;
+        }
+
+        .custom-file-container {
+            display: inline-block;
+            position: relative;
+            margin-bottom: 10px;
+        }
+
+        .custom-file-container .custom-file-label {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #1b4f55;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .custom-file-container .custom-file-label:hover {
+            background-color: #1b4f55;
+        }
+
+
+
+
+    `]
 })
 export class PanelsDemoComponent implements OnInit {
     estate: EstateMi | undefined;
@@ -87,7 +146,57 @@ export class PanelsDemoComponent implements OnInit {
           }
         });
       }*/
-      uploadDocument(file: File | null, reference: number | undefined, documentId: number): void {
+    uploadDocument(file: File | null, reference: number | undefined, documentId: number): void {
+        if (!file) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Aucun fichier sélectionné',
+                text: 'Veuillez sélectionner un fichier.',
+                timer: 1500,
+                showConfirmButton: false
+            });
+            return;
+        }
+        const formData = new FormData();
+        formData.append('file', file);
+        const url = `http://localhost:8083/upload/${reference}/${documentId}`;
+
+        this.http.post(url, formData, { responseType: 'text' }).subscribe({
+            next: (response) => {
+                try {
+                    const parsedResponse = JSON.parse(response);
+                    console.log('Fichier téléchargé avec succès', parsedResponse);
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Téléchargement réussi',
+                        text: 'Image téléchargée avec succès!',
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+                } catch (error) {
+                    console.error('Erreur lors du traitement de la réponse', error);
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Téléchargement réussi',
+                        text: 'le fichier téléchargée avec succès',
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+                }
+            },
+            error: (err) => {
+                console.error('Erreur lors du téléchargement du fichier', err);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Échec du téléchargement',
+                    text: 'Échec du téléchargement de l\'image.',
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+            }
+        });
+    }
+      /*uploadDocument(file: File | null, reference: number | undefined, documentId: number): void {
         if (!file) {
           alert('Please select a file.');
           return;
@@ -106,7 +215,7 @@ export class PanelsDemoComponent implements OnInit {
             alert('Failed to upload image.');
           }
         });
-      }
+      }*/
     fetchUserData(): void {
         const decodedToken = this.authService.decodeToken();
         const userEmail = decodedToken.sub;

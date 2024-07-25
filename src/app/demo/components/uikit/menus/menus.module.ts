@@ -15,6 +15,13 @@ import { TabMenuModule } from 'primeng/tabmenu';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { StepsModule } from 'primeng/steps';
 import { InputTextModule } from 'primeng/inputtext';
+import {ButtonModule} from "primeng/button";
+import {CommonModule} from "@angular/common";
+import {DataViewModule} from "primeng/dataview";
+import {DropdownModule} from "primeng/dropdown";
+import {OrderListModule} from "primeng/orderlist";
+import {PickListModule} from "primeng/picklist";
+import {EstateImageService} from "../../../service/estateImage.service";
 
 @NgModule({
     declarations: [
@@ -39,16 +46,23 @@ import { InputTextModule } from 'primeng/inputtext';
         RouterModule.forChild([
             {
                 path: '', component: MenusComponent, children: [
-                    { path: '', redirectTo: 'personal', pathMatch: 'full' },
-                    { path: 'personal', component: PersonalComponent },
-                    { path: 'confirmation', component: ConfirmationComponent },
-                    { path: 'seat', component: SeatComponent },
-                    { path: 'payment', component: PaymentComponent }
+                    {path: '', redirectTo: 'personal', pathMatch: 'full'},
+                    {path: 'personal', component: PersonalComponent},
+                    {path: 'confirmation', component: ConfirmationComponent},
+                    {path: 'seat', component: SeatComponent},
+                    {path: 'payment', component: PaymentComponent}
                 ]
             }
-        ])
+        ]),
+        ButtonModule,
+        CommonModule,
+        DataViewModule,
+        DropdownModule,
+        OrderListModule,
+        PickListModule
     ],
-    exports: [RouterModule]
+    exports: [RouterModule],
+    providers: [EstateImageService],
 })
 export class MenusModule { }
 

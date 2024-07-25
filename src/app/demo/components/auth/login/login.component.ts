@@ -290,11 +290,12 @@ html,body {
 export class LoginComponent {
 
     signupForm = new FormGroup({
-        username: new FormControl('', [Validators.required, Validators.minLength(3)]), // Add Validators as needed
+        firstname: new FormControl('', [Validators.required, Validators.minLength(3)]), // Add Validators as needed
+        lastname: new FormControl('', [Validators.required, Validators.minLength(3)]),
         email: new FormControl('', [Validators.required, Validators.email]),
 
         password: new FormControl('', [Validators.required, Validators.minLength(6)]),
-        phoneNumber: new FormControl('', [Validators.required, Validators.minLength(8), Validators.pattern(phoneNumberPattern) ]),
+       // phoneNumber: new FormControl('', [Validators.required, Validators.minLength(8), Validators.pattern(phoneNumberPattern) ]),
 
 
       });
@@ -443,13 +444,13 @@ export class LoginComponent {
                 (response) => {
                     Swal.fire({
                         icon: 'success',
-                        title: 'Registration Successful',
-                        text: 'You can now log in with your credentials.',
+                        title: 'Inscription réussie',
+                        text: 'Vous pouvez maintenant vous connecter avec vos identifiants..',
                         confirmButtonText: 'OK'
                     });
                     // Optionally reset the form or redirect the user
                     this.signupForm.reset();
-                    this.router.navigate(['/login']);
+                    this.router.navigate(['/landing']);
                 },
                 (error) => {
                     Swal.fire({
@@ -512,8 +513,8 @@ export class LoginComponent {
             if (response.access_token) {
               Swal.fire({
                 icon: 'success',
-                title: 'Hello!',
-                text: `Welcome, ${response}!`,
+                title: 'réussie!',
+                text: `Bienvenue, Olfa!`,
                 confirmButtonText: 'OK',
               }).then(() => {
                 try {

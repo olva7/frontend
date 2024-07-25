@@ -15,11 +15,21 @@ export class EstatemiService {
   constructor(private Http:HttpClient) {
 
    }
+    updateEstateStatusAccepter(id: number): Observable<EstateMi> {
+        return this.Http.put<EstateMi>(`${this.urlServiceApi}update-status-accepter/${id}`, {});
+    }
+
+    updateEstateStatusRefuser(id: number): Observable<EstateMi> {
+        return this.Http.put<EstateMi>(`${this.urlServiceApi}update-status-refuser/${id}`, {});
+    }
    getEstateById(id: number): Observable<any> {
     return this.Http.get<EstateMi>(`${this.urlServiceApi}get/${id}`).pipe(
       catchError(this.handleError)
     );
   }
+    countEstatesByCategory(): Observable<any> {
+        return this.Http.get<any>(`${this.urlServiceApi}count-by-category`);
+    }
 
   private handleError(error: HttpErrorResponse) {
     if (error.status === 404) {
@@ -29,7 +39,9 @@ export class EstatemiService {
     }
   }
 
-
+    countEstates(): Observable<number> {
+        return this.Http.get<number>(`${this.urlServiceApi}count`);
+    }
    getAllEstates(): Observable<EstateMi[]> {
     return this.Http.get<EstateMi[]>(this.urlServiceApi+"estates");
   }

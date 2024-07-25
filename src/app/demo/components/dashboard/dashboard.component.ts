@@ -4,6 +4,9 @@ import { Product } from '../../api/product';
 import { ProductService } from '../../service/product.service';
 import { Subscription } from 'rxjs';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
+import {EstatemiService} from "../../service/estatemi.service";
+import {DemandeEstateService} from "../../service/demande.service";
+import {Chart} from "chart.js";
 
 @Component({
     templateUrl: './dashboard.component.html',
@@ -15,20 +18,32 @@ export class DashboardComponent implements OnInit, OnDestroy {
     products!: Product[];
 
     chartData: any;
-
+    estateCountEtat2: number | undefined;
+    estateCountEtat3: number | undefined;
+    estateCountEtat1: number | undefined;
+    chart: any;
     chartOptions: any;
     pieData: any;
     pieOptions: any;
+    estateCount: number | undefined;
+    demandeCount: number | undefined;
 
     subscription!: Subscription;
 
-    constructor(private productService: ProductService, public layoutService: LayoutService) {
+    constructor(private productService: ProductService,private estateService: EstatemiService,private demandeService: DemandeEstateService , public layoutService: LayoutService) {
         this.subscription = this.layoutService.configUpdate$.subscribe(() => {
             this.initChart();
         });
     }
 
     ngOnInit() {
+        this.getDemandeCount();
+        this.loadChartData();
+        this.getEstateCount();
+        this.getEstateCountEtat2();
+        this.getEstateCountEtat1();
+        this.getEstateCountEtat3();
+
         this.initChart();
         this.productService.getProductsSmall().then(data => this.products = data);
 
@@ -37,7 +52,97 @@ export class DashboardComponent implements OnInit, OnDestroy {
             { label: 'Remove', icon: 'pi pi-fw pi-minus' }
         ];
     }
+    getEstateCountEtat2(): void {
+        this.demandeService.countEstatesByEtatEstateEquals2().subscribe({
+            next: (count: number) => {
+                this.estateCountEtat2 = count;
+            },
+            error: (error) => {
+                console.error('Error fetching estate count with etatEstate=2:', error);
+            }
+        });
+    }
+    loadChartData(): void {
+        this.estateService.countEstatesByCategory().subscribe(data => {
+            const categories = data.map((item: any) => item[0]);
+            const counts = data.map((item: any) => item[1]);
 
+            this.chart = new Chart('canvas', {
+                type: 'pie',
+                data: {
+                    labels: categories,
+                    datasets: [
+                        {
+                            data: counts,
+                            backgroundColor: this.getBackgroundColors(categories.length),
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: true,
+                            text: 'Estate Categories'
+                        }
+                    }
+                }
+            });
+        });
+    }
+
+    getBackgroundColors(count: number): string[] {
+        const colors = [
+            '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40',
+            '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'
+        ];
+        return colors.slice(0, count);
+    }
+
+
+    getEstateCountEtat1(): void {
+        this.demandeService.countEstatesByEtatEstateEquals1().subscribe({
+            next: (count: number) => {
+                this.estateCountEtat1 = count;
+            },
+            error: (error) => {
+                console.error('Error fetching estate count with etatEstate=1:', error);
+            }
+        });
+    }
+    getEstateCountEtat3(): void {
+        this.demandeService.countEstatesByEtatEstateEquals3().subscribe({
+            next: (count: number) => {
+                this.estateCountEtat3 = count;
+            },
+            error: (error) => {
+                console.error('Error fetching estate count with etatEstate=3:', error);
+            }
+        });
+    }
+    getDemandeCount(): void {
+        this.demandeService.countDemandes().subscribe({
+            next: (count: number) => {
+                this.demandeCount = count;
+            },
+            error: (error) => {
+                console.error('Error fetching demandes count:', error);
+            }
+        });
+    }
+    getEstateCount(): void {
+        this.estateService.countEstates().subscribe({
+            next: (count: number) => {
+                this.estateCount = count;
+            },
+            error: (error) => {
+                console.error('Error fetching estate count:', error);
+            }
+        });
+    }
     initChart() {
         const documentStyle = getComputedStyle(document.documentElement);
         const textColor = documentStyle.getPropertyValue('--text-color');

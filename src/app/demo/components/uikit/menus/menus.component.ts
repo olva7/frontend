@@ -1,472 +1,194 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { MegaMenuItem, MenuItem } from 'primeng/api';
+import {ConfirmationService, MegaMenuItem, MenuItem, MessageService, SelectItem} from 'primeng/api';
+import {Product} from "../../../api/product";
+import {EstateMi} from "../../../api/estatemi";
+import {EstateImage} from "../../../api/estateimage";
+import {ProductService} from "../../../service/product.service";
+import {Router} from "@angular/router";
+import {EstatemiService} from "../../../service/estatemi.service";
+import {EstateImageService} from "../../../service/estateImage.service";
+import {DataView} from "primeng/dataview";
+import Swal from 'sweetalert2';
 
 @Component({
     templateUrl: './menus.component.html',
+    styles: [`
+
+        /* component.css */
+        .brick-red-text {
+            color: #B22222;
+        }
+        .sky-blue-text {
+            color: #87CEEB;
+        }
+
+
+
+
+    `],
+
     encapsulation: ViewEncapsulation.None
 })
 export class MenusComponent implements OnInit {
 
-    breadcrumbItems!: MenuItem[];
 
-    tieredItems!: MenuItem[];
 
-    items!: MenuItem[];
+    products: Product[] = [];
+    estates: EstateMi[] = [];
 
-    routeItems!: MenuItem[];
 
-    megaMenuItems!: MegaMenuItem[];
+    images: EstateImage[] = [];
 
-    panelMenuItems!: MenuItem[];
+    sortOptions: SelectItem[] = [];
 
-    stepsItems!: MenuItem[];
+    sortOrder: number = 0;
 
-    slideItems!: MenuItem[];
+    sortField: string = '';
 
-    menuItems!: MenuItem[];
+    sourceCities: any[] = [];
 
-    plainMenuItems!: MenuItem[];
+    targetCities: any[] = [];
 
-    pageIndex: number = 0;
+    orderCities: any[] = [];
 
+    constructor(private productService: ProductService,private router: Router,private estateService: EstatemiService,private imageService: EstateImageService) { }
+    imagesMap: { [key: number]: EstateImage[] } = {};
     ngOnInit() {
 
-        this.tieredItems = [
-            {
-                label: 'Customers',
-                icon: 'pi pi-fw pi-table',
-                items: [
-                    {
-                        label: 'New',
-                        icon: 'pi pi-fw pi-plus',
-                        items: [
-                            {
-                                label: 'Customer',
-                                icon: 'pi pi-fw pi-plus'
-                            },
-                            {
-                                label: 'Duplicate',
-                                icon: 'pi pi-fw pi-copy'
-                            },
+        this.loadEstates();
 
-                        ]
-                    },
-                    {
-                        label: 'Edit',
-                        icon: 'pi pi-fw pi-user-edit'
-                    }
-                ]
-            },
-            {
-                label: 'Orders',
-                icon: 'pi pi-fw pi-shopping-cart',
-                items: [
-                    {
-                        label: 'View',
-                        icon: 'pi pi-fw pi-list'
-                    },
-                    {
-                        label: 'Search',
-                        icon: 'pi pi-fw pi-search'
-                    }
+        this.productService.getProducts().then(data => this.products = data);
 
-                ]
-            },
-            {
-                label: 'Shipments',
-                icon: 'pi pi-fw pi-envelope',
-                items: [
-                    {
-                        label: 'Tracker',
-                        icon: 'pi pi-fw pi-compass',
+        this.sourceCities = [
+            { name: 'San Francisco', code: 'SF' },
+            { name: 'London', code: 'LDN' },
+            { name: 'Paris', code: 'PRS' },
+            { name: 'Istanbul', code: 'IST' },
+            { name: 'Berlin', code: 'BRL' },
+            { name: 'Barcelona', code: 'BRC' },
+            { name: 'Rome', code: 'RM' }];
 
-                    },
-                    {
-                        label: 'Map',
-                        icon: 'pi pi-fw pi-map-marker',
+        this.targetCities = [];
 
-                    },
-                    {
-                        label: 'Manage',
-                        icon: 'pi pi-fw pi-pencil'
-                    }
-                ]
-            },
-            {
-                label: 'Profile',
-                icon: 'pi pi-fw pi-user',
-                items: [
-                    {
-                        label: 'Settings',
-                        icon: 'pi pi-fw pi-cog'
-                    },
-                    {
-                        label: 'Billing',
-                        icon: 'pi pi-fw pi-file'
-                    }
-                ]
-            },
-            { separator: true },
-            {
-                label: 'Quit',
-                icon: 'pi pi-fw pi-sign-out'
-            }
-        ];
+        this.orderCities = [
+            { name: 'San Francisco', code: 'SF' },
+            { name: 'London', code: 'LDN' },
+            { name: 'Paris', code: 'PRS' },
+            { name: 'Istanbul', code: 'IST' },
+            { name: 'Berlin', code: 'BRL' },
+            { name: 'Barcelona', code: 'BRC' },
+            { name: 'Rome', code: 'RM' }];
 
-        this.items = [
-            {
-                label: 'Customers',
-                items: [
-                    {
-                        label: 'New',
-                        icon: 'pi pi-fw pi-plus'
-                    },
-                    {
-                        label: 'Edit',
-                        icon: 'pi pi-fw pi-user-edit'
-                    }
-                ]
-            },
-            {
-                label: 'Orders',
-                items: [
-                    {
-                        label: 'View',
-                        icon: 'pi pi-fw pi-list'
-                    },
-                    {
-                        label: 'Search',
-                        icon: 'pi pi-fw pi-search'
-                    }
-
-                ]
-            },
-            {
-                label: 'Shipments',
-                items: [
-                    {
-                        label: 'Tracker',
-                        icon: 'pi pi-fw pi-compass',
-
-                    },
-                    {
-                        label: 'Map',
-                        icon: 'pi pi-fw pi-map-marker',
-
-                    },
-                    {
-                        label: 'Manage',
-                        icon: 'pi pi-fw pi-pencil'
-                    }
-                ]
-            }
-        ];
-
-        this.menuItems = [
-            {
-                label: 'Save', icon: 'pi pi-fw pi-check'
-            },
-            {
-                label: 'Update', icon: 'pi pi-fw pi-refresh'
-            },
-            {
-                label: 'Delete', icon: 'pi pi-fw pi-trash'
-            },
-            {
-                separator: true
-            },
-            {
-                label: 'Home', icon: 'pi pi-fw pi-home'
-            },
-        ];
-
-        this.slideItems = [
-            {
-                label: 'Customers',
-                icon: 'pi pi-fw pi-table',
-                items: [
-                    {
-                        label: 'New',
-                        icon: 'pi pi-fw pi-plus'
-                    },
-                    {
-                        label: 'Edit',
-                        icon: 'pi pi-fw pi-user-edit'
-                    }
-                ]
-            },
-            {
-                label: 'Orders',
-                icon: 'pi pi-fw pi-shopping-cart',
-                items: [
-                    {
-                        label: 'View',
-                        icon: 'pi pi-fw pi-list'
-                    },
-                    {
-                        label: 'Search',
-                        icon: 'pi pi-fw pi-search'
-                    }
-
-                ]
-            },
-            {
-                label: 'Shipments',
-                icon: 'pi pi-fw pi-envelope',
-                items: [
-                    {
-                        label: 'Tracker',
-                        icon: 'pi pi-fw pi-compass',
-
-                    },
-                    {
-                        label: 'Map',
-                        icon: 'pi pi-fw pi-map-marker',
-
-                    },
-                    {
-                        label: 'Manage',
-                        icon: 'pi pi-fw pi-pencil'
-                    }
-                ]
-            },
-            {
-                label: 'Profile',
-                icon: 'pi pi-fw pi-user',
-                items: [
-                    {
-                        label: 'Settings',
-                        icon: 'pi pi-fw pi-cog'
-                    },
-                    {
-                        label: 'Billing',
-                        icon: 'pi pi-fw pi-file'
-                    }
-                ]
-            }
-        ];
-
-        this.plainMenuItems = [
-            {
-                label: 'Customers',
-                items: [
-                    {
-                        label: 'New',
-                        icon: 'pi pi-fw pi-plus'
-                    },
-                    {
-                        label: 'Edit',
-                        icon: 'pi pi-fw pi-user-edit'
-                    }
-                ]
-            },
-            {
-                label: 'Orders',
-                items: [
-                    {
-                        label: 'View',
-                        icon: 'pi pi-fw pi-list'
-                    },
-                    {
-                        label: 'Search',
-                        icon: 'pi pi-fw pi-search'
-                    }
-
-                ]
-            }
-        ];
-
-        this.breadcrumbItems = [];
-        this.breadcrumbItems.push({ label: 'Electronics' });
-        this.breadcrumbItems.push({ label: 'Computer' });
-        this.breadcrumbItems.push({ label: 'Notebook' });
-        this.breadcrumbItems.push({ label: 'Accessories' });
-        this.breadcrumbItems.push({ label: 'Backpacks' });
-        this.breadcrumbItems.push({ label: 'Item' });
-
-        this.routeItems = [
-            { label: 'Personal', routerLink: 'personal' },
-            { label: 'Seat', routerLink: 'seat' },
-            { label: 'Payment', routerLink: 'payment' },
-            { label: 'Confirmation', routerLink: 'confirmation' },
-        ];
-
-        this.megaMenuItems = [
-            {
-                label: 'Fashion', icon: 'pi pi-fw pi-tag',
-                items: [
-                    [
-                        {
-                            label: 'Women',
-                            items: [{ label: 'Women Item' }, { label: 'Women Item' }, { label: 'Women Item' }]
-                        },
-                        {
-                            label: 'Men',
-                            items: [{ label: 'Men Item' }, { label: 'Men Item' }, { label: 'Men Item' }]
-                        }
-                    ],
-                    [
-                        {
-                            label: 'Kids',
-                            items: [{ label: 'Kids Item' }, { label: 'Kids Item' }]
-                        },
-                        {
-                            label: 'Luggage',
-                            items: [{ label: 'Luggage Item' }, { label: 'Luggage Item' }, { label: 'Luggage Item' }]
-                        }
-                    ]
-                ]
-            },
-            {
-                label: 'Electronics', icon: 'pi pi-fw pi-desktop',
-                items: [
-                    [
-                        {
-                            label: 'Computer',
-                            items: [{ label: 'Computer Item' }, { label: 'Computer Item' }]
-                        },
-                        {
-                            label: 'Camcorder',
-                            items: [{ label: 'Camcorder Item' }, { label: 'Camcorder Item' }, { label: 'Camcorder Item' }]
-                        }
-                    ],
-                    [
-                        {
-                            label: 'TV',
-                            items: [{ label: 'TV Item' }, { label: 'TV Item' }]
-                        },
-                        {
-                            label: 'Audio',
-                            items: [{ label: 'Audio Item' }, { label: 'Audio Item' }, { label: 'Audio Item' }]
-                        }
-                    ],
-                    [
-                        {
-                            label: 'Sports.7',
-                            items: [{ label: 'Sports.7.1' }, { label: 'Sports.7.2' }]
-                        }
-                    ]
-                ]
-            },
-            {
-                label: 'Furniture', icon: 'pi pi-fw pi-image',
-                items: [
-                    [
-                        {
-                            label: 'Living Room',
-                            items: [{ label: 'Living Room Item' }, { label: 'Living Room Item' }]
-                        },
-                        {
-                            label: 'Kitchen',
-                            items: [{ label: 'Kitchen Item' }, { label: 'Kitchen Item' }, { label: 'Kitchen Item' }]
-                        }
-                    ],
-                    [
-                        {
-                            label: 'Bedroom',
-                            items: [{ label: 'Bedroom Item' }, { label: 'Bedroom Item' }]
-                        },
-                        {
-                            label: 'Outdoor',
-                            items: [{ label: 'Outdoor Item' }, { label: 'Outdoor Item' }, { label: 'Outdoor Item' }]
-                        }
-                    ]
-                ]
-            },
-            {
-                label: 'Sports', icon: 'pi pi-fw pi-star',
-                items: [
-                    [
-                        {
-                            label: 'Basketball',
-                            items: [{ label: 'Basketball Item' }, { label: 'Basketball Item' }]
-                        },
-                        {
-                            label: 'Football',
-                            items: [{ label: 'Football Item' }, { label: 'Football Item' }, { label: 'Football Item' }]
-                        }
-                    ],
-                    [
-                        {
-                            label: 'Tennis',
-                            items: [{ label: 'Tennis Item' }, { label: 'Tennis Item' }]
-                        }
-                    ]
-                ]
-            },
-        ];
-
-        this.panelMenuItems = [
-            {
-                label: 'Customers',
-                items: [
-                    {
-                        label: 'New',
-                        icon: 'pi pi-fw pi-plus',
-                        items: [
-                            {
-                                label: 'Customer',
-                                icon: 'pi pi-fw pi-plus'
-                            },
-                            {
-                                label: 'Duplicate',
-                                icon: 'pi pi-fw pi-copy'
-                            },
-
-                        ]
-                    },
-                    {
-                        label: 'Edit',
-                        icon: 'pi pi-fw pi-user-edit'
-                    }
-                ]
-            },
-            {
-                label: 'Orders',
-                items: [
-                    {
-                        label: 'View',
-                        icon: 'pi pi-fw pi-list'
-                    },
-                    {
-                        label: 'Search',
-                        icon: 'pi pi-fw pi-search'
-                    }
-
-                ]
-            },
-            {
-                label: 'Shipments',
-                items: [
-                    {
-                        label: 'Tracker',
-                        icon: 'pi pi-fw pi-compass',
-
-                    },
-                    {
-                        label: 'Map',
-                        icon: 'pi pi-fw pi-map-marker',
-
-                    },
-                    {
-                        label: 'Manage',
-                        icon: 'pi pi-fw pi-pencil'
-                    }
-                ]
-            },
-            {
-                label: 'Profile',
-                items: [
-                    {
-                        label: 'Settings',
-                        icon: 'pi pi-fw pi-cog'
-                    },
-                    {
-                        label: 'Billing',
-                        icon: 'pi pi-fw pi-file'
-                    }
-                ]
-            }
+        this.sortOptions = [
+            { label: 'Price High to Low', value: '!price' },
+            { label: 'Price Low to High', value: 'price' }
         ];
     }
+    updateEstateStatusAccepter(id: number): void {
+        this.estateService.updateEstateStatusAccepter(id).subscribe({
+            next: (updatedEstate: EstateMi) => {
+                console.log('Estate status updated to accepted:', updatedEstate);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Status Updated',
+                    text: 'The estate status has been updated to accepted.',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'OK'
+                });
+            },
+            error: (error) => {
+                console.error('Error updating estate status to accepted:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Update Failed',
+                    text: 'There was an error updating the estate status to accepted.',
+                    confirmButtonColor: '#d33',
+                    confirmButtonText: 'OK'
+                });
+            }
+        });
+    }
+
+    updateEstateStatusRefuser(id: number): void {
+        this.estateService.updateEstateStatusRefuser(id).subscribe({
+            next: (updatedEstate: EstateMi) => {
+                console.log('Estate status updated to refused:', updatedEstate);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Status Updated',
+                    text: 'The estate status has been updated to refused.',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'OK'
+                });
+            },
+            error: (error) => {
+                console.error('Error updating estate status to refused:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Update Failed',
+                    text: 'There was an error updating the estate status to refused.',
+                    confirmButtonColor: '#d33',
+                    confirmButtonText: 'OK'
+                });
+            }
+        });
+    }
+
+
+    loadEstates(): void {
+        this.estateService.getAllEstates().subscribe({
+            next: (data: EstateMi[]) => {
+                this.estates = data.filter(estate => estate.etatEstate === 2);  // Filtrage des estates avec etatEstate=1
+                this.estates.forEach(estate => {
+                    if (estate.idEstateMI !== undefined) {  // Vérification ajoutée ici
+                        this.loadImagesForEstate(estate.idEstateMI);
+                        console.log(this.estates, "estates");
+                    }
+                });
+            },
+            error: (error) => {
+                console.error('Error fetching estates:', error);
+            }
+        });
+    }
+
+    loadImagesForEstate(idEstateMI: number): void {
+        this.imageService.getByIdImageData(idEstateMI).subscribe({
+            next: (images: EstateImage[]) => {
+                this.imagesMap[idEstateMI] = images;
+            },
+            error: (error) => {
+                console.error('Error fetching images for estate', idEstateMI, ':', error);
+            }
+        });
+
+
+    }
+    viewDetails(id: any) {
+
+        console.log('ID:', id); // Vérifiez la valeur de l'ID dans la console
+        if (id !== undefined) {
+            this.router.navigate(['../panel/', id]);
+        } else {
+            console.error('ID is undefined');
+        }
+    }
+
+    onSortChange(event: any) {
+        const value = event.value;
+
+        if (value.indexOf('!') === 0) {
+            this.sortOrder = -1;
+            this.sortField = value.substring(1, value.length);
+        } else {
+            this.sortOrder = 1;
+            this.sortField = value;
+        }
+    }
+
+    onFilter(dv: DataView, event: Event) {
+        dv.filter((event.target as HTMLInputElement).value);
+    }
+
+
 }

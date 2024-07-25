@@ -29,35 +29,35 @@ item: any;
         {
             label: 'Home',
             items: [
-                { label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/'] }
+                { label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/'],requiredRole: 'ADMIN' }
             ]
         },
         {
-            label: 'UI Components',
+            label: '',
             items: [
-                { label: 'Form Layout', icon: 'pi pi-fw pi-id-card', routerLink: ['/uikit/formlayout']},
-                { label: 'Ajouter une estate', icon: 'pi pi-fw pi-check-square', routerLink: ['/uikit/input'] },
+                { label: 'Gérer les utilisateurs', icon: 'pi pi-fw pi-id-card', routerLink: ['/uikit/formlayout'],requiredRole: 'ADMIN'},
+                { label: 'Ajouter une estate', icon: 'pi pi-fw pi-check-square', routerLink: ['/uikit/input'],requiredRole: 'concessionnaire' },
                 { label: 'Liste des utilisateurs', icon: 'pi pi-fw pi-bookmark', routerLink: ['/uikit/floatlabel'],requiredRole: 'ADMIN' },
-                { label: 'Invalid State', icon: 'pi pi-fw pi-exclamation-circle', routerLink: ['/uikit/invalidstate'] },
-                { label: 'Button', icon: 'pi pi-fw pi-mobile', routerLink: ['/uikit/button'], class: 'rotated-icon' },
+                //{ label: 'Invalid State', icon: 'pi pi-fw pi-exclamation-circle', routerLink: ['/uikit/invalidstate'] },
+               // { label: 'Button', icon: 'pi pi-fw pi-mobile', routerLink: ['/uikit/button'], class: 'rotated-icon' },
                 //this?.userRole === 'admin' ? { label: 'Table', icon: 'pi pi-fw pi-table', routerLink: ['/uikit/table'] } : null,
                 // Ajoutez une condition pour afficher la List uniquement si l'utilisateur a le rôle d'admin
                 //this.userRole === 'admin' ? { label: 'List', icon: 'pi pi-fw pi-list', routerLink: ['/uikit/list'] } : null,
                 { label: 'Liste des demandes', icon: 'pi pi-fw pi-table', routerLink: ['/uikit/table'] , requiredRole: 'ADMIN' },
-                { label: 'List', icon: 'pi pi-fw pi-list', routerLink: ['/uikit/list'] },
-                { label: 'Liste des estates', icon: 'pi pi-fw pi-share-alt', routerLink: ['/uikit/tree'],requiredRole: 'ADMIN' },
-                { label: 'Panel', icon: 'pi pi-fw pi-tablet', routerLink: ['/uikit/panel'] },
-                { label: 'Overlay', icon: 'pi pi-fw pi-clone', routerLink: ['/uikit/overlay'] },
-                { label: 'Media', icon: 'pi pi-fw pi-image', routerLink: ['/uikit/media'] },
-                { label: 'Menu', icon: 'pi pi-fw pi-bars', routerLink: ['/uikit/menu'], preventExact: true },
-                { label: 'Message', icon: 'pi pi-fw pi-comment', routerLink: ['/uikit/message'] },
-                { label: 'File', icon: 'pi pi-fw pi-file', routerLink: ['/uikit/file'] },
-                { label: 'Chart', icon: 'pi pi-fw pi-chart-bar', routerLink: ['/uikit/charts'] },
-                { label: 'Misc', icon: 'pi pi-fw pi-circle', routerLink: ['/uikit/misc'] },
-                { label: 'MyDashBoard', icon: 'pi pi-fw pi-id-card', routerLink: ['/mydashboard'] }
+                { label: 'Liste des estates', icon: 'pi pi-fw pi-list', routerLink: ['/uikit/list'],requiredRole: 'client' },
+                { label: 'Liste des estates', icon: 'pi pi-fw pi-share-alt', routerLink: ['/uikit/tree'],requiredRole: 'concessionnaire' },
+                //{ label: 'Panel', icon: 'pi pi-fw pi-tablet', routerLink: ['/uikit/panel'] },
+                //{ label: 'Overlay', icon: 'pi pi-fw pi-clone', routerLink: ['/uikit/overlay'] },
+                //{ label: 'Media', icon: 'pi pi-fw pi-image', routerLink: ['/uikit/media'] },
+                { label: 'Liste des estates', icon: 'pi pi-fw pi-bars', routerLink: ['/uikit/menu'], preventExact: true ,requiredRole: 'ADMIN'},
+                { label: 'Liste des demandes', icon: 'pi pi-fw pi-comment', routerLink: ['/uikit/message'],requiredRole: 'client' },
+                //{ label: 'File', icon: 'pi pi-fw pi-file', routerLink: ['/uikit/file'] },
+                //{ label: 'Chart', icon: 'pi pi-fw pi-chart-bar', routerLink: ['/uikit/charts'] },
+                //{ label: 'Misc', icon: 'pi pi-fw pi-circle', routerLink: ['/uikit/misc'] },
+                //{ label: 'MyDashBoard', icon: 'pi pi-fw pi-id-card', routerLink: ['/mydashboard'] }
             ]
         },
-        {
+        /*{
             label: 'Prime Blocks',
             items: [
                 { label: 'Free Blocks', icon: 'pi pi-fw pi-eye', routerLink: ['/blocks'], badge: 'NEW' },
@@ -70,9 +70,9 @@ item: any;
                 { label: 'PrimeIcons', icon: 'pi pi-fw pi-prime', routerLink: ['/utilities/icons'] },
                 { label: 'PrimeFlex', icon: 'pi pi-fw pi-desktop', url: ['https://www.primefaces.org/primeflex/'], target: '_blank' },
             ]
-        },
+        },*/
         {
-            label: 'Pages',
+            label: 'Page Principale',
             icon: 'pi pi-fw pi-briefcase',
             routerLink: ['/pages'],
             items: [
@@ -81,7 +81,7 @@ item: any;
                     icon: 'pi pi-fw pi-globe',
                     routerLink: ['/landing']
                 },
-                {
+               /* {
                     label: 'Auth',
                     icon: 'pi pi-fw pi-user',
                     items: [
@@ -121,10 +121,10 @@ item: any;
                     label: 'Empty',
                     icon: 'pi pi-fw pi-circle-off',
                     routerLink: ['/pages/empty']
-                },
+                },*/
             ]
         },
-        {
+       /* {
             label: 'Hierarchy',
             items: [
                 {
@@ -176,7 +176,7 @@ item: any;
                     label: 'View Source', icon: 'pi pi-fw pi-search', url: ['https://github.com/primefaces/sakai-ng'], target: '_blank'
                 }
             ]
-        }
+        }*/
     ];
 console.log('Menu items:', this.model);}
     // Fonction pour vérifier si un élément de menu doit être affiché en fonction du rôle de l'utilisateur

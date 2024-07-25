@@ -10,7 +10,21 @@ import { NodeService } from 'src/app/demo/service/node.service';
 import { ProductService } from 'src/app/demo/service/product.service';
 
 @Component({
-    templateUrl: './treedemo.component.html'
+    templateUrl: './treedemo.component.html',
+    styles: [`
+
+        /* component.css */
+        .brick-red-text {
+            color: #B22222;
+        }
+        .sky-blue-text {
+            color: #87CEEB;
+        }
+
+
+
+
+    `],
 })
 export class TreeDemoComponent implements OnInit {
 

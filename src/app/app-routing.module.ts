@@ -21,7 +21,7 @@ import { PanelsDemoComponent } from './demo/components/uikit/panels/panelsdemo.c
                     // New Update Template
                     { path: 'mydashboard', component: MydashboardComponent },
 
-                ], 
+                ],
             },{
                 path:'welcomepage',component:WelcomepageComponent
             },

@@ -27,6 +27,8 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
 import { SliderModule } from 'primeng/slider';
 import { FileUploadModule } from 'primeng/fileupload';
 import { EstateImageService } from 'src/app/demo/service/estateImage.service';
+import {RippleModule} from "primeng/ripple";
+import {ToolbarModule} from "primeng/toolbar";
 
 
 @NgModule({
@@ -56,7 +58,9 @@ import { EstateImageService } from 'src/app/demo/service/estateImage.service';
         SelectButtonModule,
         CheckboxModule,
         ButtonModule,
-        FileUploadModule
+        FileUploadModule,
+        RippleModule,
+        ToolbarModule
     ],
     declarations: [InputDemoComponent],
     providers: [EstateImageService],

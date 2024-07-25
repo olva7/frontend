@@ -8,8 +8,8 @@ export class FormLayoutComponent {
     selectedState: any;
 
     dropdownItems = [
-        { name: 'Option 1', code: 'Option 1' },
-        { name: 'Option 2', code: 'Option 2' },
-        { name: 'Option 3', code: 'Option 3' }
+        { name: 'roles', code: 'admin ' },
+        { name: 'concessionnaire', code: 'concessionnaire' },
+        { name: ' client', code: 'client' }
     ];
 }

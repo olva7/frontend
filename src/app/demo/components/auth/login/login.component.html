@@ -4,21 +4,41 @@
         <h2 class="form-title" id="signup"><span>or</span>Sign up</h2>
         <form [formGroup]="signupForm" (ngSubmit)="register()">
             <div class="field">
-                <input type="text" class="input" placeholder="Username" formControlName="username" />
-                <div *ngIf="signupForm.get('username')?.errors && signupForm.get('username')?.touched">
-                    <small class="error" *ngIf="signupForm.get('username')?.errors?.['required']">Username is required.</small>
-                    <small class="error" *ngIf="signupForm.get('username')?.errors?.['minlength']">Username must be at least 2 characters long.</small>
+
+                <div style="margin-bottom: 10px;">
+
+                    <input pInputText type="text" class="input" placeholder="Firstname" formControlName="firstname" />
+                    <div *ngIf="signupForm.get('firstname')?.errors && signupForm.get('firstname')?.touched">
+                        <small class="error" *ngIf="signupForm.get('firstname')?.errors?.['required']">Username is required.</small>
+                        <small class="error" *ngIf="signupForm.get('firstname')?.errors?.['minlength']">Username must be at least 2 characters long.</small>
+                    </div>
                 </div>
-                <input type="email" class="input" placeholder="Email" formControlName="email" />
+                <div style="margin-bottom: 10px;">
+
+                    <input pInputText type="text" class="input" placeholder="Lastname" formControlName="lastname" />
+                    <div *ngIf="signupForm.get('lastname')?.errors && signupForm.get('lastname')?.touched">
+                        <small class="error" *ngIf="signupForm.get('lastname')?.errors?.['required']">Nom est essentiel.</small>
+                        <small class="error" *ngIf="signupForm.get('lastname')?.errors?.['minlength']">lastname must be at least 2 characters long.</small>
+                    </div>
+                </div>
+                <div style="margin-bottom: 20px;">
+                <input pInputText type="email" class="input" placeholder="Email" formControlName="email" />
                 <div *ngIf="signupForm.get('email')?.errors && signupForm.get('email')?.touched">
                     <small class="error" *ngIf="signupForm.get('email')?.errors?.['required']">Email is required.</small>
                     <small class="error" *ngIf="signupForm.get('email')?.errors?.['email']">Please enter a valid email.</small>
                 </div>
-                <input type="password" class="input" placeholder="Password" formControlName="password" />
+                </div>
+                <div style="margin-bottom: 20px;">
+                <input pInputText type="password" class="input" placeholder="Password" formControlName="password" />
                 <div *ngIf="signupForm.get('password')?.errors && signupForm.get('password')?.touched">
                     <small class="error" *ngIf="signupForm.get('password')?.errors?.['required']">Password is required.</small>
                     <small class="error" *ngIf="signupForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters long.</small>
                 </div>
+                </div>
+                <!--<div class="p-field">
+                    <label>Date de disponibilité:</label>
+                    <p-calendar [(ngModel)]="estateSaved.disponibilite" [showIcon]="true" inputId="disponibilityDate" name="disponibilityDate"></p-calendar>
+                </div>-->
             </div>
             <button type="submit" class="submit-btn" (click)="register()">Sign up</button>
         </form>
@@ -28,8 +48,12 @@
             <h2 class="form-title" id="login" (click)="toggleSlide('login')"><span>or</span>Log in</h2>
             <form [formGroup]="loginForm" (ngSubmit)="login()" >
                 <div class="field">
-                    <input type="email" class="input" placeholder="Email" formControlName="email" />
-                    <input type="password" class="input" placeholder="Password" formControlName="password" />
+                    <div style="margin-bottom: 20px;">
+                        <input pInputText type="email" class="input" placeholder="Email" formControlName="email" />
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <input pInputText type="password" class="input" placeholder="Password" formControlName="password" />
+                    </div>
                 </div>
                 <button type="submit" class="submit-btn" >Log in</button>
             </form>

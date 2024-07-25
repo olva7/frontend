@@ -20,11 +20,30 @@ import { EstateImageService } from 'src/app/demo/service/estateImage.service';
 import { HttpEventType } from '@angular/common/http';
 import {jwtDecode} from 'jwt-decode';
 import { AppUser } from 'src/app/demo/api/user';
+import Swal from "sweetalert2";
+import {TypeEstaetService} from "../../../service/type-estate.service";
 
 @Component({
     templateUrl: './inputdemo.component.html',
     providers: [MessageService],
     styles: [`
+        .custom-file-upload {
+            border: 2px solid green;
+            display: inline-block;
+            padding: 6px 12px;
+            cursor: pointer;
+            background-color: white;
+            color: green;
+            border-radius: 5px;
+            font-family: Arial, sans-serif;
+        }
+
+        .custom-file-upload:hover {
+            background-color: green;
+            color: white;
+        }
+
+
         :host ::ng-deep .p-multiselect {
             min-width: 15rem;
         }
@@ -72,6 +91,8 @@ import { AppUser } from 'src/app/demo/api/user';
     `]
 })
 export class InputDemoComponent implements OnInit {
+    private error!: string;
+    private errorMessage!: string | null;
 myUploadHandler($event: any) {
 throw new Error('Method not implemented.');
 }
@@ -84,6 +105,7 @@ throw new Error('Method not implemented.');
 }
     countries: any[] = [];
     currentUser: any;
+
 
     filteredCountries: any[] = [];
 
@@ -102,7 +124,12 @@ throw new Error('Method not implemented.');
     valSwitch: boolean = false;
 
     cities: SelectItem[] = [];
+    categorieMi!:string | null;
     map: any;
+    lat:any;
+    lng:any;
+    marker:any;
+    localiserClick:boolean=false;
 
 
     selectedList: SelectItem = { value: '' };
@@ -138,23 +165,28 @@ throw new Error('Method not implemented.');
     fetchedUser: AppUser | null = null;
     userEmail: string = '';
     lastAddedEstateId: number | null = null;
-    typeEstate?:string;
+    typeEstate?:string | null;
     typeEstateMi?:TypeEstateMi;
+    typeEstateMiList: TypeEstateMi[] = [];
 
-    constructor(private estateService: EstatemiService ,private messageService: MessageService,private authService: UserService,private categorieTypeService: CategorieTypeService,private typeService: TypeCaracteristiqueService, private categorieService:CategorieService, private imageUploadService: EstateImageService) { }
+
+    constructor(private estateService: EstatemiService ,private typeEstateMiService:TypeEstaetService,private categorieMiService: CategorieService
+        ,private messageService: MessageService,private authService: UserService,private categorieTypeService: CategorieTypeService,private typeService: TypeCaracteristiqueService, private categorieService:CategorieService, private imageUploadService: EstateImageService) { }
 
     ngOnInit() {
 
         this.loadCategories();
+        //this.getCategorieMi(1);
         //this.loadTypes();
         //this.loadCaracteristiques(1);
         //this.initMap();
         //this.displayToken();
         //this.displayTokenDetails();
+        this.getTypeEstateMiById(1);
 
         //this.fetchUserId1();
         //this.getUserEmail();
-    
+
         this.testFetchUserByEmail();
         //this.getUserEmail1();
         const userRole = this.authService.getUserRole();
@@ -163,6 +195,41 @@ throw new Error('Method not implemented.');
 
 
     }
+    getTypeMiById(id: number): void {
+        this.typeEstateMiService.getTypeMiById(id).subscribe({
+            next: (data) => {
+                this.typeEstateMiList = data;
+                console.log(data);
+                this.errorMessage = null;
+            },
+            error: (error) => {
+                console.error('Error fetching data:', error);
+                this.errorMessage = 'Failed to load data.';
+            }
+        });
+    }
+    getCategorieMi(id: number): Promise<string> {
+        return new Promise((resolve, reject) => {
+            this.categorieMiService.getCategorieMiById(id).subscribe({
+                next: (data) => {
+                    this.categorieMi = data;
+                    console.log(data);
+                    this.errorMessage = null;  // Réinitialiser l'erreur si la requête est réussie
+                    resolve(data);  // Resolve the promise with the data
+                },
+                error: (error) => {
+                    console.error('Error fetching category:', error);
+                    this.errorMessage = 'Failed to load category data.';
+                    this.categorieMi = null;  // Assurer l'absence de données périmées
+                    reject('Failed to load category data.');  // Reject the promise with an error message
+                }
+            });
+        });
+    }
+
+
+
+
     //user=this.fetchUserId1()
     getUserEmail(): string  {
         const token = this.authService.getToken();
@@ -184,18 +251,7 @@ throw new Error('Method not implemented.');
         this.userEmail = this.getUserEmail();
       }
 
-      /*addEstate1(): void {
-        this.authService.fetchUserByEmail(getUserEmail()).subscribe({
-          next: (user: AppUser) => {
-            this.estateSaved.idUser = user;  // Directement l'objet AppUser
-            this.saveEstate();  // Appel de la méthode pour sauvegarder l'estate
-          },
-          error: (error) => {
-            console.error('Error fetching user:', error);
-            // Gestion des erreurs
-          }
-        });
-      }*/
+
 
       testFetchUserByEmail(): void {
         //const emailToTest = 'john.doe@exemple.com'; // Remplacez par l'email que vous voulez tester
@@ -256,22 +312,7 @@ throw new Error('Method not implemented.');
         });
       }
 
-      /*fetchUserId1(): void {
-        const email = this.getUserEmail();
-        if (email) {
-          this.authService.fetchUserIdByEmail(email).subscribe({
-            next: (id) => {
-              this.userId = id;
-              console.log('Received User ID:', id);
-            },
-            error: (error) => {
-              console.error('Failed to fetch user ID:', error);
-            }
-          });
-        } else {
-          console.error('No email found in token.');
-        }
-      }*/
+
     displayToken(): void {
         const token = this.authService.getToken();
         if (token) {
@@ -339,71 +380,20 @@ throw new Error('Method not implemented.');
           error: (err) => console.error('There was an error:', err)
         });
       }
-      /*myUploadHandler(event: any) {
-        // Vous devez obtenir l'ID de l'estate d'une manière appropriée
-        const idEstate = 1;
 
-        for (let file of event.files) {
-          const formData: FormData = new FormData();
-          formData.append('file', file);
-
-          this.imageUploadService.uploadImage(idEstate, file).subscribe({
-            next: (response) => {
-              this.uploadedFiles.push(file);
-              console.log('Upload successful:', response);
-              event.onProgress.emit({ files: this.uploadedFiles });
-            },
-            error: (error) => {
-              console.error('Error uploading file:', error);
-            },
-            complete: () => {
-              event.onComplete.emit(); // Signale à PrimeNG que l'upload est terminé
-            }
-          });
-        }}*/
         onFileSelected(event: any): void {
             this.file = event.target.files[0];
           }
+// Handles file selection and assigns the selected file to a variable
+    handleFileSelection(event: any): void {
+        if (event.target.files.length > 0) {
+            this.file = event.target.files[0];
+        } else {
+            console.error('No file selected');
+        }
+    }
 
-         /* upload(): void {
-            if (!this.file) {
-              this.message = 'Please select a file.';
-              return;
-            }
-            const idEstate = 22; // Assurez-vous d'obtenir cet ID de manière appropriée
-            this.imageUploadService.uploadImage(idEstate, this.file).subscribe({
-              next: (event) => {
-                if (event.type === HttpEventType.Response) {
-                  this.message = event.body.message;
-                }
-              },
-              error: (error) => {
-                this.message = error;
-              }
-            });
-          }*/
-          /*onUpload(event: any): void {
-            if (event.files.length === 0) {
-              this.message = 'No file selected.';
-              return;
-            }
 
-            const formData = new FormData();
-            // Assumer que vous téléchargez un seul fichier pour la simplicité
-            formData.append('file', event.files[0], event.files[0].name);
-            const idEstate = 22; // Assurez-vous d'obtenir cet ID de manière appropriée
-
-            this.imageUploadService.uploadImage(idEstate, formData).subscribe({
-              next: (event) => {
-                if (event.type === HttpEventType.Response) {
-                  this.message = `Upload successful: ${event.body.message}`;
-                }
-              },
-              error: (error) => {
-                this.message = `Upload failed: ${error.message}`;
-              }
-            });
-          }*/
 
 
 
@@ -416,6 +406,7 @@ throw new Error('Method not implemented.');
     onCategorySelectionChange() {
         console.log('Selected category ID:', this.selectedCategoryId);
         if (this.selectedCategoryId) {
+
             this.categorieTypeService.getAllTypeMiByIdCategorieMi(this.selectedCategoryId).subscribe(
                 data => {
                     console.log("Raw data from API:", data);
@@ -466,151 +457,192 @@ throw new Error('Method not implemented.');
       }
     );
   }
- /* addEstate(): void {
-    // Afficher les détails de l'estate dans la console
-    console.log(this.selectedTypeId,"test")
-    //this.selectedTypeId=this.estateSaved.idType.idTypeEstateMI;
-    this.estateSaved.idType.idTypeEstateMI=this.selectedTypeId
-    this.estateSaved.idUser.idUser
-
-    console.log(this.estateSaved,"test");
-    //this.estateSaved.idUser=this.user;
-    const email = this.getUserEmail();
-  if (!email) {
-    console.error('No email found, cannot fetch user ID.');
-    return;
-  }
-  console.log('Estate to be saved:', this.estateSaved);
-
-
-  this.authService.fetchUserByEmail(email).subscribe({
-    next: (user: AppUser) => {
-      this.estateSaved.idUser = user;  // Assumant que `idUser` est un objet de type `AppUser`
-      console.log('User ID set, saving estate now...');
-      console.log('Estate to be saved:', this.estateSaved);
-      this.estateService.add(this.estateSaved).subscribe({
-        next: (response) => {
-          console.log('Estate saved:', response);
-          this.estateSaved = response;
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Stock ajoutée avec succès',
-            icon: 'pi pi-check',
-            life: 3000
-          });
-        },
-        error: (error) => {
-          console.error('Error saving estate:', error);
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Erreur lors de la sauvegarde du stock',
-            detail: error.message || 'Une erreur s\'est produite',
-            icon: 'pi pi-exclamation-triangle',
-            life: 5000
-          });
-        }
-      });
-    },
-    error: (error) => {
-      console.error('Failed to fetch user:', error);
-    }
-  });
-
-  }*/
-  ////////////////////////////////////////////////////////
-  /*addEstate(): void {
-    // Afficher les détails de l'estate dans la console
-    console.log(this.selectedTypeId,"test")
-    //this.selectedTypeId=this.estateSaved.idType.idTypeEstateMI;
-    //this.estateSaved.idType.idTypeEstateMI=this.selectedTypeId
-    this.estateSaved.idTypeEstate.idTypeEstateMI=this.selectedTypeId;
-    //this.estateSaved.idEstateMI = this.estate.idEstateMI;
-    console.log(this.estateSaved,"test");
-    //this.estateSaved.idUser=this.user;
-    this.estateSaved.idUser.idUser=this.fetchedUser?.idUser;
-
-    console.log('Data being sent:', JSON.stringify(this.estateSaved));
-
-    // Sauvegarde de l'estate
-    this.estateService.add(this.estateSaved).subscribe(
-      response => {
-        // Traitement de la réponse de sauvegarde de l'estate
-        console.log(response, "hello");
-        this.estateSaved = response;
-
-        // Affichage d'un message de succès
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Stock ajoutée avec succès',
-          icon: 'pi pi-check',
-          life: 3000
-        });
-
-        // Réinitialiser le formulaire ou effectuer d'autres actions nécessaires
-        //this.resetForm();
-      },
-      error => {
-        // Gestion des erreurs lors de la sauvegarde de l'estate
-        console.error('Error saving estate: ', error);
-
-        // Affichage d'un message d'erreur
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Erreur lors de la sauvegarde du stock',
-          detail: error.message || 'Une erreur s\'est produite',
-          icon: 'pi pi-exclamation-triangle',
-          life: 5000
-        });
-      }
-    );
-  }*/
-  addEstate(): void {
-    console.log(this.selectedTypeId, "test");
-    this.estateSaved.idTypeEstate.idTypeEstateMI = this.selectedTypeId;
-    this.estateSaved.idUser.idUser = this.fetchedUser?.idUser;
-    console.log('Data being sent:', JSON.stringify(this.estateSaved));
-    this.estateSaved.idTypeEstate.typeEstate
-
-    // Ajoute l'estate
-    this.estateService.add(this.estateSaved).subscribe(
-        response => {
-            console.log(response, "hello");
-            this.estateSaved = response;
-            // Stockez l'ID de l'estate ajouté
-            this.lastAddedEstateId = response.idEstateMI;
-
-            this.messageService.add({
-                severity: 'success',
-                summary: 'Estate ajouté avec succès',
-                icon: 'pi pi-check',
-                life: 3000
+    fetchTypeEstate(): void {
+        if (this.selectedTypeId !== undefined) {
+            this.typeEstateMiService.getTypeEstateMiById(this.selectedTypeId).subscribe({
+                next: (data: string) => {
+                    this.typeEstate = data;
+                    this.estateSaved.idTypeEstate.typeEstate = this.typeEstate || undefined;
+                    this.errorMessage = null;
+                },
+                error: (error) => {
+                    console.error('Error fetching data:', error);
+                    this.errorMessage = 'Failed to load data.';
+                    this.typeEstate = null;
+                    this.estateSaved.idTypeEstate.typeEstate = undefined;
+                }
             });
+        } else {
+            console.error('selectedTypeId is undefined.');
+            this.estateSaved.idTypeEstate.typeEstate = undefined;
+        }
+    }
+    getTypeEstateMiById(id: number): void {
+        this.typeEstateMiService.getTypeEstateMiById(id).subscribe({
+            next: (data) => {
+                this.typeEstate = data;
+                console.log(data);
+                this.errorMessage = null;
+            },
+            error: (error) => {
+                console.error('Error fetching data:', error);
+                this.errorMessage = 'Failed to load data.';
+                this.typeEstate = null;
+            }
+        });
+    }
+    /*addEstate(): void {
+        console.log(this.selectedTypeId, "test");
+        this.estateSaved.idTypeEstate.idTypeEstateMI = this.selectedTypeId;
+        console.log(this.selectedCategoryId);
+        if (this.selectedCategoryId !== undefined) {
+            this.getCategorieMi(this.selectedCategoryId)
+                .then((category) => {
+                    this.categorieMi = category;
+                    this.estateSaved.categorieMiTag = this.categorieMi;
+                })
+                .catch((error) => {
+                    console.error('Error fetching category:', error);
+                    this.categorieMi = null;
+                    this.estateSaved.categorieMiTag = null;
+                });
+        }
 
-            // Vérifier si une image a été sélectionnée
-            if (this.file) {
-                // Uploader l'image en utilisant l'ID de l'estate
-                this.upload();
-            } else {
-                console.warn('No image selected to upload.');
+
+        //this.estateSaved.categorieMiTag
+        this.estateSaved.idUser.idUser = this.fetchedUser?.idUser;
+        console.log('Data being sent:', JSON.stringify(this.estateSaved));
+
+        this.estateService.add(this.estateSaved).subscribe({
+            next: (response) => {
+                console.log(response, "hello");
+                this.estateSaved = response;
+                this.lastAddedEstateId = response.idEstateMI;
+
+                // SweetAlert pour succès de l'ajout de l'estate
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Succès!',
+                    text: 'Estate ajouté avec succès!',
+                    confirmButtonText: 'Super!',
+                    confirmButtonColor: '#3085d6'
+                });
+
+                // Vérifier si une image a été sélectionnée
+                if (this.file) {
+                    this.upload();
+                } else {
+                    console.warn('No image selected to upload.');
+                    // Afficher une alerte d'erreur si aucune image n'est sélectionnée
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erreur lors de l\'ajout de l\'estate',
+                        text: 'Aucune image sélectionnée pour l\'upload.',
+                        confirmButtonText: 'Ok',
+                        confirmButtonColor: '#d33'
+                    });
+                }
+            },
+            error: (error) => {
+                console.error('Error saving estate: ', error);
+                // SweetAlert pour l'échec de l'ajout de l'estate
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Échec de l\'opération',
+                    text: 'Impossible d\'ajouter l\'estate: ' + (error.message || 'Une erreur interne s\'est produite'),
+                    confirmButtonText: 'Fermer',
+                    confirmButtonColor: '#d33'
+                });
+            }
+        });
+    }*/
+    async addEstate(): Promise<void> {
+        try {
+            console.log(this.selectedTypeId, "test");
+            this.estateSaved.idTypeEstate.idTypeEstateMI = this.selectedTypeId;
+            console.log(this.selectedCategoryId);
+
+            if (this.selectedCategoryId !== undefined) {
+                try {
+                    this.categorieMi = await this.getCategorieMi(this.selectedCategoryId);
+                    this.estateSaved.categorieMiTag = this.categorieMi;
+                } catch (error) {
+                    console.error('Error fetching category:', error);
+                    this.categorieMi = null;
+                    this.estateSaved.categorieMiTag = null;
+                }
             }
 
-            // Réinitialiser le formulaire ou effectuer d'autres actions nécessaires
-            // this.resetForm();
-        },
-        error => {
-            console.error('Error saving estate: ', error);
-            this.messageService.add({
-                severity: 'error',
-                summary: 'Erreur lors de l\'ajout de l\'estate',
-                detail: error.message || 'Une erreur s\'est produite',
-                icon: 'pi pi-exclamation-triangle',
-                life: 5000
+            this.estateSaved.idUser.idUser = this.fetchedUser?.idUser;
+            console.log('Data being sent:', JSON.stringify(this.estateSaved));
+
+            this.estateService.add(this.estateSaved).subscribe({
+                next: (response) => {
+                    console.log(response, "hello");
+                    this.estateSaved = response;
+                    this.lastAddedEstateId = response.idEstateMI;
+
+                    // SweetAlert for successful estate addition
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Succès!',
+                        text: 'Estate ajouté avec succès!',
+                        confirmButtonText: 'Super!',
+                        confirmButtonColor: '#3085d6'
+                    });
+
+                    // Check if an image has been selected
+                    if (this.file) {
+                        this.upload();
+                    } else {
+                        console.warn('No image selected to upload.');
+                        // Display an error alert if no image is selected
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erreur lors de l\'ajout de l\'estate',
+                            text: 'Aucune image sélectionnée pour l\'upload.',
+                            confirmButtonText: 'Ok',
+                            confirmButtonColor: '#d33'
+                        });
+                    }
+                },
+                error: (error) => {
+                    console.error('Error saving estate: ', error);
+                    // SweetAlert for estate addition failure
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Échec de l\'opération',
+                        text: 'Impossible d\'ajouter l\'estate: ' + (error.message || 'Une erreur interne s\'est produite'),
+                        confirmButtonText: 'Fermer',
+                        confirmButtonColor: '#d33'
+                    });
+                }
+            });
+        } catch (error) {
+            console.error('Error in addEstate:', error);
+            // Handle any unexpected errors
+            Swal.fire({
+                icon: 'error',
+                title: 'Erreur inattendue',
+                //text: 'Une erreur inattendue s\'est produite: ' + (error.message || 'Une erreur interne s\'est produite'),
+                confirmButtonText: 'Fermer',
+                confirmButtonColor: '#d33'
             });
         }
-    );
-}
+    }
 
-upload(): void {
+// Assuming getCategorieMi is already an async function returning a promise
+    async getCategorieMi1(id: number): Promise<string> {
+        return new Promise((resolve, reject) => {
+            // Simulate async fetching of category
+            this.categorieMiService.getCategorieMiById(id).subscribe({
+                next: (data) => resolve(data),
+                error: (err) => reject(err)
+            });
+        });
+    }
+
+/*upload(): void {
     if (!this.file) {
         this.message = 'Please select a file.';
         return;
@@ -634,7 +666,48 @@ upload(): void {
             console.error(this.message);
         }
     });
-}
+}*/
+    upload(): void {
+        if (!this.file) {
+            this.message = 'Veuillez sélectionner un fichier.';
+            Swal.fire({
+                icon: 'warning',
+                title: 'Aucun fichier sélectionné',
+                text: this.message,
+                timer: 1500,
+                showConfirmButton: false
+            });
+            return;
+        }
+
+        if (this.lastAddedEstateId === null) {
+            this.message = "Aucun identifiant de bien disponible. Veuillez ajouter un bien d'abord.";
+            Swal.fire({
+                icon: 'warning',
+                title: 'Aucun identifiant de bien',
+                text: this.message,
+                timer: 1500,
+                showConfirmButton: false
+            });
+            return;
+        }
+
+        this.imageUploadService.uploadImage(this.lastAddedEstateId, this.file).subscribe({
+            next: (event) => {
+                if (event.type === HttpEventType.Response) {
+                    this.message = 'Image téléchargée avec succès: ' + event.body.message;
+                    console.log(this.message);
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Téléchargement réussi',
+                        text: this.message,
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+                }
+            }
+        });
+    }
 
 
   getUser(): AppUser {

@@ -1,6 +1,6 @@
 <div class="grid">
     <div class="col-12">
-        <div class="card">
+        <!--<div class="card">
             <h5>Toolbar</h5>
             <p-toolbar>
                 <div class="p-toolbar-group-left flex flex-wrap">
@@ -19,9 +19,9 @@
                 </div>
             </p-toolbar>
         </div>
-    </div>
+    </div>-->
 
-    <div class="col-12 md:col-6">
+    <div class="col-12 ">
         <!--<div class="card">
             <h5>AccordionPanel</h5>
             <p-accordion>
@@ -57,31 +57,32 @@
         </div>-->
 
         <div class="card">
-            <h5>TabView</h5>
+            <h5></h5>
             <p-tabView [activeIndex]="activeIndex" orientation="left">
                 <p-tabPanel header="Ajouter une Demande" class="line-height-3 m-0">
                     <div  *ngIf="estate">
                         <div class="card p-fluid">
-                          <h5>Details</h5>
+                            <h4><b>Les details de demande</b></h4>
+                                <br>
                           <div class="field">
-                            <label for="name1">Name</label>
-                            <p id="name1">{{ estate.addressEstate }}</p>
+                              <label for="Address de l'estate"><b>Address de l'estate</b></label>
+                            <p id="Address de l'estate">{{ estate.addressEstate }}</p>
                           </div>
                           <div class="field">
-                            <label for="email1">Email</label>
-                            <p id="email1">{{ estate.prixTotale }}</p>
+                              <label for="Prix totale de demande"><b>Prix totale de demande</b></label>
+                            <p id="Prix totale de demande">{{ estate.prixTotale }}</p>
                           </div>
                           <div class="field">
-                            <label for="age1">Age</label>
-                            <p id="age1">{{ estate.surfacieEnM }}</p>
+                              <label for="Surface en m²"><b>Surface en m²</b></label>
+                            <p id="Surface en m²">{{ estate.surfacieEnM }}</p>
                           </div>
                           <div class="field">
-                            <label for="email1">Email</label>
-                            <p id="email1">{{ estate.prixTotale }}</p>
+                            <label for="Catégorie de l'estate"><b>Catégorie de l'estate</b></label>
+                            <p id="Catégorie de l'estate">{{ estate.categorieMiTag }}</p>
                           </div>
                           <div class="field">
-                            <label for="age1">Age</label>
-                            <p id="age1">{{ estate.idTypeEstate }}</p>
+                              <label for="Type de l'estate"><b>Type de l'estate</b></label>
+                            <p id="Type de l'estate">{{ estate.idTypeEstate.typeEstate }}</p>
                           </div>
                         </div>
                         <button pButton pRipple label="Ajouter Demande" (click)="addDemande()" class="mr-2 mb-2"></button>
@@ -99,13 +100,20 @@
                     <div style="height: 50px;"></div>
                     <button pButton pRipple label="Ajouter Votre CIN" (click)="addDemande()" class="mr-2 mb-2"></button>
                     <div style="height: 50px;"></div>-->
+                    <!-- src/app/components/your-component/your-component.component.html -->
+                    <!-- src/app/components/your-component/your-component.component.html -->
                     <div *ngFor="let document of doc">
-                        <div>
-                          <p>{{ document.documentLib }} - {{ document.idDocument }}</p>
-                          <input type="file" (change)="onFileSelected($event)">
-                          <button (click)="uploadDocument(selectedFile, ref ,document.idDocument)">Upload Image</button>
+                        <div class="custom-file-container">
+                            <p>{{ document.documentLib }}</p>
+                            <input type="file" id="file-{{document.idDocument}}" (change)="onFileSelected($event)" class="custom-file-input">
+                            <label for="file-{{document.idDocument}}" class="custom-file-label">Choisir un fichier</label>
+                            <button (click)="uploadDocument(selectedFile, ref, document.idDocument)" class="custom-upload-button">
+                                Upload Image
+                            </button>
                         </div>
-                      </div>
+                    </div>
+
+
                 </p-tabPanel>
                 <!--<p-tabPanel header="Header III" class="line-height-3 m-0">
                     At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum

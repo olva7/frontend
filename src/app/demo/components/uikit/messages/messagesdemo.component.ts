@@ -91,7 +91,7 @@ export class MessagesDemoComponent {
                 data => {
                     console.log("Données brutes reçues:", data); // Afficher les données brutes pour diagnostic
                     // Filtrer les données pour obtenir seulement les demandes avec un user de id = 1
-                    this.demandesEstate = data.filter(demande => demande.idUser && demande.idUser.idUser ===  1);
+                    this.demandesEstate = data.filter(demande => demande.idUser && demande.idUser.idUser ===  72);
                     console.log("Données filtrées:", this.demandesEstate); // Afficher les données après filtrage
                 },
                 error => {
