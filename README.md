@@ -1,75 +1,55 @@
-# Sakai
+## 🛒 About the Project
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.4.
+**Mi** is a modern and intuitive e-commerce platform dedicated to the management and sale of automotive assets (*estates*).  
+It enables seamless interaction between three complementary user profiles: **dealers**, **customers**, and **administrators**, each with access to features and dashboards tailored to their specific needs.
 
-## Development server
+---
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+### 👨‍🔧 Dealer
 
-## Code scaffolding
+- Adds estates with their contact information and image galleries  
+- Views the list of their own estates  
+- Accesses financing requests related to their estates  
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+---
 
-## Build
+### 👤 Customer
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- Browses the products available on the platform  
+- Views the details of a product (estate)  
+- Submits a financing request for a product  
+- Tracks the progress and status of their requests  
 
-## Running unit tests
+---
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### 🛡️ Administrator
 
-## Running end-to-end tests
+- Accesses e-commerce site statistics  
+- Approves or rejects estates submitted by dealers  
+- Manages users (customers and dealers)  
+- Oversees financing requests  
+---
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## 🧰 Tech Stack
 
-## Further help
+### Frontend
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- **Modern UI**: Built with Angular, leveraging modular components and lazy loading for enhanced performance.
+- **Language**: Developed entirely in **TypeScript** for type safety and cleaner code.
+- **Routing**: Implements Angular Router for seamless client-side navigation.
+- **User Interface**:
+  - Custom, responsive UI with a clean and professional design
+  - Reactive Forms and custom form controls for efficient form handling
+- **Features**:
+  - Pagination and search functionality integrated with backend services
+  - Dynamic dashboards and user-specific views
 
-##  Theme
+### DevOps
 
-```
-primereact/resources/themes/bootstrap4-light-blue/theme.css
-primereact/resources/themes/bootstrap4-light-purple/theme.css
-primereact/resources/themes/bootstrap4-dark-blue/theme.css
-primereact/resources/themes/bootstrap4-dark-purple/theme.css
-primereact/resources/themes/md-light-indigo/theme.css
-primereact/resources/themes/md-light-deeppurple/theme.css
-primereact/resources/themes/md-dark-indigo/theme.css
-primereact/resources/themes/md-dark-deeppurple/theme.css
-primereact/resources/themes/mdc-light-indigo/theme.css
-primereact/resources/themes/mdc-light-deeppurple/theme.css
-primereact/resources/themes/mdc-dark-indigo/theme.css
-primereact/resources/themes/mdc-dark-deeppurple/theme.css
-primereact/resources/themes/tailwind-light/theme.css
-primereact/resources/themes/fluent-light/theme.css
-primereact/resources/themes/lara-light-blue/theme.css
-primereact/resources/themes/lara-light-indigo/theme.css
-primereact/resources/themes/lara-light-purple/theme.css
-primereact/resources/themes/lara-light-teal/theme.css
-primereact/resources/themes/lara-dark-blue/theme.css
-primereact/resources/themes/lara-dark-indigo/theme.css
-primereact/resources/themes/lara-dark-purple/theme.css
-primereact/resources/themes/lara-dark-teal/theme.css
-primereact/resources/themes/saga-blue/theme.css
-primereact/resources/themes/saga-green/theme.css
-primereact/resources/themes/saga-orange/theme.css
-primereact/resources/themes/saga-purple/theme.css
-primereact/resources/themes/vela-blue/theme.css
-primereact/resources/themes/vela-green/theme.css
-primereact/resources/themes/vela-orange/theme.css
-primereact/resources/themes/vela-purple/theme.css
-primereact/resources/themes/arya-blue/theme.css
-primereact/resources/themes/arya-green/theme.css
-primereact/resources/themes/arya-orange/theme.css
-primereact/resources/themes/arya-purple/theme.css
-primereact/resources/themes/nova/theme.css
-primereact/resources/themes/nova-alt/theme.css
-primereact/resources/themes/nova-accent/theme.css
-primereact/resources/themes/luna-amber/theme.css
-primereact/resources/themes/luna-blue/theme.css
-primereact/resources/themes/luna-green/theme.css
-primereact/resources/themes/luna-pink/theme.css
-primereact/resources/themes/rhea/theme.css
-```
- 
+- **Docker**: Dockerized frontend for consistent deployment across environments
+- **Nginx**: Used as a reverse proxy to serve the Angular application efficiently
+  
+# Demo
+
+
+
